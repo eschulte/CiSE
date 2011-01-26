@@ -1,0 +1,25 @@
+#+Title: A CiSE Department Contribution on Org-mode
+#+Author:
+#+Options: ^:nil toc:nil
+
+Guidelines:
+- http://www.computer.org/portal/web/peerreviewmagazines/accise
+- http://www.computer.org/portal/web/peerreviewmagazines/dgcise
+
+The actual article will live in file:org-mode-code-blocks.org (name of
+file and subject obviously subject to change).  This document can be
+used for project management.
+
+* Tasks [0/2]
+** TODO CiSE Deadline
+   DEADLINE: <2011-02-22 Tue>
+
+** TODO Figure out a motivating example
+This should include will include some of the following features of
+Org-mode, but most importantly the use of each should feel natural.
+- code blocks in multiple languages, passing data between blocks
+- flow of data to/from an external resource either a live data
+  repository available on the web, an external file or database,
+  etc...
+- generation of a figure
+- possibly interaction with data stored in a table in the document
