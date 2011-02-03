@@ -1,10 +1,15 @@
 \tikzstyle{org} = [shape=rectangle, draw, font=\footnotesize,
                    fill=gray!30, minimum width=18em, text width=18em]
 
+\tikzstyle{page} = [shape=rectangle, draw, font=\footnotesize,
+                    fill=gray!30, minimum width=12em, text width=12em]
+
 \tikzstyle{ext} = [shape=rectangle, draw, rounded corners,
                    text centered, text width=5em]
 
 \tikzstyle{eval-step} = [shape=circle, draw, fill=yellow!60]
+
+\tikzstyle{expt} = [right, midway, font=\large]
 
 \tikzstyle{proc} = [->, thick, bend right, bend angle=22.5]
 \tikzstyle{data} = [->, thick, bend angle=90, bend right, distance=4em]
@@ -84,4 +89,44 @@
   \node [eval-step] at (-4.5,   -3) {8};
   \node [eval-step] at (-3.5,-4.25) {9};
 
+  %% Export actions
+  \draw [->, very thick] ( 1,-5.5) to ( 5,-7);
+  \draw [->, very thick] ( 0,-5.5) to ( 0,-7) node [expt] {Export};
+  \draw [->, very thick] (-1,-5.5) to (-5,-7);
+
+  %% Export targets
+  \node [\font=large] at (-6,-7.5) {HTML};
+  \node [page]        at (-6,-8.75) {
+\begin{verbatim}
+<title>
+  Example Org-mode File
+</title>
+
+<h1>Data Source</h1>
+<p>Data was gathered from...
+\end{verbatim}
+};
+  \node [\font=large] at (0,-7.5) {ASCII};
+  \node [page]        at (0,-9) {
+\begin{verbatim}
+Example Org-mode File
+=====================
+
+Data Source
+-----------
+
+Data was gathered from...
+\end{verbatim}
+};
+  \node [\font=large] at (6,-7.5) {\LaTeX / PDF};
+  \node [page]        at (6,-8.75) {
+\begin{verbatim}
+\title{Example Org-mode File}
+
+\section{Data Source}
+
+Data was gathered from...
+\end{verbatim}
+};
+  
 \end{tikzpicture}
