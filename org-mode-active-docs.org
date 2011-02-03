@@ -18,13 +18,73 @@
 \end{abstract}
 
 * Introduction
+** Overview
+Org-mode is a plain text document format which allows data, code and
+prose to be co-mingled in a single document.
 
-#+label: overview
+Active code and data blocks in Org-mode documents can be named,
+allowing them to reference one another.  This ability makes it
+possible for easily combine snippets of code from various languages
+into a single functional package.  Figure \ref{fig:overview} shows a
+series of chained evaluation which can be triggered either
+interactively by the user, or upon export of the document.
+
+** Syntax
+Org-mode
+- Meta-information at the top
+- headlines and folding
+- links
+
+Code and Data
+- basic syntax for tables
+- blocks of code and data
+- (some) header arguments
+
+** Evaluation
+When the =analyze= code block is evaluated, the following events take
+place automatically.
+1. The =analyze= code block is evaluated.  The =:var data=data= header
+   argument causes the =data= Org-mode to evaluate the =data= reference.
+
+2. To resolve this reference the =data= code block is located in the
+   Org-mode file and is evaluated.
+
+3. The =:var raw=raw= header argument causes Org-mode to resolve the
+   =raw= reference.
+
+4. The =raw= code block is evaluated, the =:var url=http://data.org=
+   header argument evaluates to the literate value of
+   ="http://data.org"= which is assigned to the =url= variable and
+   passed to the shell script.
+   
+   The shell script then downloads data from the external url, and
+   returns this data as the result to Org-mode.
+
+5. The results of the shell script are assigned to the =raw= variable
+   which is passed to the Python code in the body of the =data= code
+   block.
+
+6. This code is passed to an external Python interpreter which
+   evaluates the Python code and returns its result to Org-mode.
+
+7. The results of the =data= code block are then assigned to the
+   =data= variable and passed to the R code in the body of the
+   =analyze= code block.
+
+8. This code is then passed to an external R interpreter which
+   evaluates the R code and generates the =fig.pdf= figure.
+
+9. A reference to this figure is then passed from the =analyze= code
+   block back to Org-mode which inserts a link to this figure into the
+   body of the Org-mode document.  On export this link will embed the
+   linked figure into the exported document.
+
+#+label: fig:overview
 #+Caption: Active Org-mode Document
 #+attr_latex: width=\textwidth
 [[file:overview.pdf]]
 
-Features
+** Features
 - Natural :: Org-mode documents can be used simply as plain text
      notes, as a hierarchical outlining system, or as an entire
      laboratory.  These various levels of sophistication enable quick
@@ -73,4 +133,5 @@ Features
      or modes of development.
 
 * Example Application
+* Discussion
 * COMMENT How to Export this Document
