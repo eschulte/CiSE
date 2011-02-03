@@ -35,3 +35,10 @@ Features
   etc...
 - generation of a figure
 - possibly interaction with data stored in a table in the document
+
+Online Data options
+- http://infochimps.com/tags/Science -- Suggested by Konrad
+- http://www.data.gov/catalog/raw
+- http://cas.sdss.org/dr6/en/ -- data from map of the sky
+  - [[http://www.sdss.org/dr6/dm/flatFiles/FILES.html][data release 6]]
+- [[http://ed.fnal.gov/samplers/hsphys/activities/summary.shtml][educational example]] -- quark mass calculation
