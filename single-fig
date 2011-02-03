@@ -1,0 +1,53 @@
+#!/bin/bash
+# export a snippet of LaTeX into a compact pdf
+PREAMBLE=$(cat <<EOF
+\documentclass{article}
+\usepackage[usenames]{color}
+\usepackage{amsmath}
+\usepackage[mathscr]{eucal}
+\pagestyle{empty}             % do not remove
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{stmaryrd}
+\usepackage{listings}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{soul}
+\usepackage{textcomp}
+\tolerance=1000
+\usepackage[active, tightpage]{preview}
+\setlength{\PreviewBorder}{0em}
+\begin{document}
+\begin{preview}
+EOF
+)
+POSTAMBLE=$(cat <<EOF
+\end{preview}
+\end{document}
+EOF
+)
+
+FIG=$1
+BASE=`basename $FIG .tex`
+TMPFILE=/tmp/single-fig.tex
+TMPBASE=`basename $TMPFILE .tex`
+echo "$PREAMBLE" > $TMPFILE
+if [ $2 ]
+then
+    echo "{\\$2" >> $TMPFILE
+fi
+cat $FIG >> $TMPFILE
+if [ $2 ]
+then
+    echo "}" >> $TMPFILE
+fi
+echo "$POSTAMBLE" >> $TMPFILE
+pdflatex -interaction nonstopmode $TMPFILE && rm $TMPFILE
+rm single-fig.aux single-fig.log
+mv $TMPBASE.pdf $BASE.pdf
