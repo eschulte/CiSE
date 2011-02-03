@@ -1,8 +1,10 @@
-\tikzstyle{org} = [rectangle, draw, font=\footnotesize,
+\tikzstyle{org} = [shape=rectangle, draw, font=\footnotesize,
                    fill=gray!30, minimum width=18em, text width=18em]
 
-\tikzstyle{ext} = [rectangle, draw, rounded corners,
+\tikzstyle{ext} = [shape=rectangle, draw, rounded corners,
                    text centered, text width=5em]
+
+\tikzstyle{eval-step} = [shape=circle, draw, fill=yellow!60]
 
 \tikzstyle{proc} = [->, thick, bend right, bend angle=22.5]
 \tikzstyle{data} = [->, thick, bend angle=90, bend right, distance=4em]
@@ -66,7 +68,20 @@
   \draw [data] (-3,-3.375) to (-3,-5)  node [data-label] {figure};
 
   %% References up
-  \draw [data] (3,0.125) to (3,2.75) node [ref-label] {Reference\\ \texttt{raw}};
-  \draw [data] (3,-3) to (3,-0.125) node [ref-label] {Reference\\ \texttt{data}};
-  
+  \draw [data] (3,0.125) to (3,2.75) node [ref-label]
+    {Resolve\\ Reference\\ \texttt{raw}};
+  \draw [data] (3,-3) to (3,-0.125) node [ref-label]
+    {Resolve\\ Reference\\ \texttt{data}};
+
+  %% Steps in resolution
+  \node [eval-step] at (   0,   -3) {1};
+  \node [eval-step] at ( 3.5, -1.5) {2};
+  \node [eval-step] at ( 3.5,  1.5) {3};
+  \node [eval-step] at (  -4,    4) {4};
+  \node [eval-step] at (-3.5,  1.5) {5};
+  \node [eval-step] at (-4.5,    0) {5};
+  \node [eval-step] at (-3.5, -1.5) {7};
+  \node [eval-step] at (-4.5,   -3) {8};
+  \node [eval-step] at (-3.5,-4.25) {9};
+
 \end{tikzpicture}
