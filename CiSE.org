@@ -6,7 +6,7 @@ Guidelines:
 - http://www.computer.org/portal/web/peerreviewmagazines/accise
 - http://www.computer.org/portal/web/peerreviewmagazines/dgcise
 
-The actual article will live in file:org-mode-active-docs.org (name of
+The actual article will live in file:org-mode-active-doc.org (name of
 file and subject obviously subject to change).  This document can be
 used for project management.
 
