@@ -1,0 +1,27 @@
+#+Title: Active Documents with Org-mode
+#+Author:
+#+Options: ^:nil toc:nil
+
+\begin{abstract}
+
+  Org-mode is a simple markup language for hierarchical plain text
+  file containing data, code and prose.  An entire research project
+  can live in a single Org-mode file.  Org-mode provides support for
+  initial note taking, planning and task managment, for embedded code
+  and data which can be executed from within the document, and for
+  export to a number of backends for sharing intermediate results and
+  for publishing journal-quality articles.
+
+  This article will include overview of key features, example, and
+  discussion.
+
+\end{abstract}
+
+* Introduction
+
+[[file:overview.pdf]]
+# see file:overview.tex
+
+* Example Application
+* Discussion
+* COMMENT How to Export this Document
