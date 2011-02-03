@@ -19,12 +19,12 @@
 
 * Introduction
 
+#+label: overview
+#+Caption: Active Org-mode Document
+#+attr_latex: width=\textwidth
 [[file:overview.pdf]]
-# see file:overview.tex
 
-* Example Application
-* Discussion
-
+Features
 - Natural :: Org-mode documents can be used simply as plain text
      notes, as a hierarchical outlining system, or as an entire
      laboratory.  These various levels of sophistication enable quick
@@ -72,4 +72,5 @@
      can be confident that it will be able to adapt to new languages
      or modes of development.
 
+* Example Application
 * COMMENT How to Export this Document
