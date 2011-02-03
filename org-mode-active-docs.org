@@ -24,4 +24,52 @@
 
 * Example Application
 * Discussion
+
+- Natural :: Org-mode documents can be used simply as plain text
+     notes, as a hierarchical outlining system, or as an entire
+     laboratory.  These various levels of sophistication enable quick
+     adoption followed by gradual learning and mastery.
+- Navigation of Large Projects :: The hierarchical folding of Org-mode
+     documents enables users to comfortably read and edit even very
+     large files by hiding much of the file from plain site.
+- Familiar editing environment :: Org-mode leverages the sophisticated
+     editing modes available in Emacs for both natural and
+     computational languages.
+- Reproducibility :: Org-mode makes reproduction the analysis embedded
+     in a document trivial for both the original author and for
+     readers.
+- Portable :: Org-mode files are plain text ensuring that they can
+     easily be used on any machine.
+- Provenance :: Given that Org-mode files are plain text, they
+     integrate easily into version control systems, allowing for
+     revision tracking and collaboration.
+- Consistency :: A single Org-mode document can be used for every
+     stage of a research project from brain-storming, through initial
+     development, and to publication.  This greatly reduces the burden
+     on the author of tracking resources, and increases the chance
+     that all information required for reproduction of the work will
+     be maintained.
+- Open Source :: Org-mode is open source software.  Its inner workings
+     are publicly visible, and its copyright is owned by the Free
+     Software Foundation FSF.  This ensures that Org-mode and any work
+     deriving from Org-mode will always be fully open to public
+     scrutiny and modification.  These are essential qualities for
+     software tools used for reproducible research.  The transparency
+     required for computational results to be accepted by the
+     scientific community can only be achieved when the workings of
+     each tool in the scientist's tool chain is open to inspection and
+     verification.
+- Active community :: The Org-mode community provides ready support to
+     both novice users with basic questions and to developers seeking
+     to extend Org-mode.  The development of Org-mode would not have
+     been possible without the attention and effort of this community.
+- General and extensible :: A main design goal of Org-mode's support
+     for working with source code was generality.  As a result, it
+     displays no reproducible research or literate programming bias,
+     supports arbitrary programming languages, and exports to a wide
+     variety of file types, including ASCII, \LaTeX{}, HTML, and
+     DocBook.  Researchers and software developers who adopt Org-mode
+     can be confident that it will be able to adapt to new languages
+     or modes of development.
+
 * COMMENT How to Export this Document
