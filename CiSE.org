@@ -10,8 +10,10 @@ The actual article will live in file:org-mode-active-doc.org (name of
 file and subject obviously subject to change).  This document can be
 used for project management.
 
-* Tasks [0/3]
-** TODO apply the CiSE template
+* Tasks [1/3]
+** DONE apply the CiSE template
+no specific template required
+
 ** TODO CiSE Deadline
    DEADLINE: <2011-02-22 Tue>
 
@@ -37,6 +39,11 @@ Features
 - possibly interaction with data stored in a table in the document
 
 Online Data options
+- http://archive.stsci.edu/fuse/retrieval_help.html -- FUSE project
+  data, spectral data from a variety of astronomical targets -- this
+  looks like the way to go, hopefully no too difficult to put together
+  a simple star spectroscopy example from this data.
+- http://archive.stsci.edu/ -- sky data
 - http://infochimps.com/tags/Science -- Suggested by Konrad
 - http://www.data.gov/catalog/raw
 - http://cas.sdss.org/dr6/en/ -- data from map of the sky

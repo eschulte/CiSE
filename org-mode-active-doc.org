@@ -137,5 +137,26 @@ place automatically.
      or modes of development.
 
 * Example Application
+Star spectroscopy using data from the Far Ultraviolet Spectroscopic
+Explorer (FUSE) project funded by NASA which---through a satellite
+orbiting the earth from June 24th 1999 through October 18th
+2009---collected data from a large portion of the electromagnetic
+spectrum.  The FUSE project performed over 6000 observations of over
+3000 separate astronomical targets.
+
+grab the data
+#+results: url
+: ftp://archive.stsci.edu/pub/fuse/data/a0010101/a00101010011attagfidf.fit.gz
+
+#_source: raw-data
+#+begin_src sh :var url=url :cache yes :file idf.fit
+  curl $url|gunzip > idf.fit
+#+end_src
+
+#+results[30b41ae899f5d3da6c3a8a897a103e1ae7c6e67b]:
+[[file:idf.fit]]
+
+
+
 * Conclusion
 * COMMENT How to Export this Document
