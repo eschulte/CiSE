@@ -199,8 +199,7 @@ statistics which we will be testing for correlation.
 #+source: stat-headers
 #+begin_src sh :results output :cache yes
   curl http://www.retrosheet.org/gamelogs/glfields.txt \
-      |head -74 \
-      |tail -17 \
+      |sed -n '57,74p' glfields.txt \
       |cut -c14- \
       |grep -v "^ " \
       |cut -d "." -f1 |cut -d "(" -f1
@@ -208,6 +207,7 @@ statistics which we will be testing for correlation.
 
 #+results[7d12e3d1647a593064f8551ea8b5e06ec094ced4]: stat-headers
 #+begin_example
+at-bats
 hits
 doubles
 triples
@@ -232,6 +232,7 @@ left on base
 #+end_src
 
 #+results: stat-headers-list
+- at-bats
 - hits
 - doubles
 - triples
