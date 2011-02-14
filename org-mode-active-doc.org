@@ -229,13 +229,18 @@ which we will be testing for correlation.
 - awarded first on catcher's interference
 - left on base
 
-This code block collects the offensive statistics from the raw data
-file.
+The next two code blocks collect the offensive statistics, and the
+attendance, from the raw data file.
 
 #+source: offensive-stats
 #+begin_src sh :var file=raw-data
-  awk '{for (x=50; x<=66; x++) {  printf "%s ", $x } print $18 }' FS="," \
+  awk '{for (x=50; x<=66; x++) {  printf "%s ", $x } printf "\n" }' FS="," \
       < $file
+#+end_src
+
+#+source: attendance
+#+begin_src sh :var file=raw-data
+  awk '{ print $18 }' FS="," < $file
 #+end_src
 
 # There seems to be a problem in parsing rows 141 and 674. E.g. 674 looks like this:
@@ -249,18 +254,19 @@ This code block uses the =R= statistical programming language to
 calculate correlations.
 
 #+source: analysis
-#+begin_src R :var headers=stat-headers :var data=offensive-stats
+#+begin_src R :var headers=stat-headers :var stats=offensive-stats :var attendance=attendance
   # apply the headers to the list
-  headers[[18]] <- "Attendance"
-  colnames(data) <- headers[1,]
+  colnames(stats) <- headers
   
-  ## The following two lines are required because parsing bugs are
-  ## causing corrupt data in these two rows.
-  data <- data[-c(141, 674),]
-  data$Attendance <- as.integer(data$Attendance)
+  ## The following lines are required because parsing bugs are causing
+  ## corrupt data in these two rows.
+  badrows <- c(141, 674)
+  stats <- stats[-badrows,]
+  attendance <- attendance[-badrows,]
+  attendance <- as.integer(attendance)
   
   # perform a simple correlation of each column with the attendence
-  corrln <- cor(data[names(data) != "Attendance"], data$Attendance)
+  corrln <- cor(stats, attendance)
   
   # return the name of the most correlated column
   rownames(corrln)[which.max(corrln)]
