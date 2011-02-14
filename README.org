@@ -24,13 +24,13 @@ Topic
   statistics, fitting curves.
 #+end_quote
 
-Languages/Tools -- some subset of the following
+*** Languages/Tools -- some subset of the following
 - gnuplot
 - R
 - Python
 - shell
 
-Features
+*** Features
 - code blocks in multiple languages, passing data between blocks
 - flow of data to/from an external resource either a live data
   repository available on the web, an external file or database,
@@ -38,7 +38,11 @@ Features
 - generation of a figure
 - possibly interaction with data stored in a table in the document
 
-Online Data options
+*** Online Data options (baseball)
+After much thrashing with non-text formatted data from the many links
+below, I've settled on doing a baseball example with the nicely
+formatted text files from http://www.retrosheet.org/.
+
 - http://archive.stsci.edu/fuse/retrieval_help.html -- FUSE project
   data, spectral data from a variety of astronomical targets -- this
   looks like the way to go, hopefully no too difficult to put together

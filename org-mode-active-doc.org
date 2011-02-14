@@ -97,7 +97,7 @@ season.
 : 2010
 
 This first simple code block translates the season into the url used
-to grab the season statistics from http://www.retrosheet.org.
+to grab the season statistics from http://www.retrosheet.org [fn:1].
 
 #+source: url
 #+begin_src sh :var season=season
@@ -268,3 +268,8 @@ reproducible research. (will need to condense this drastically).
      or modes of development.
 
 * COMMENT How to Export this Document
+
+* Footnotes
+[fn:1] The information used here was obtained free of charge from and
+is copyrighted by Retrosheet.  Interested parties may contact
+Retrosheet at "www.retrosheet.org".
