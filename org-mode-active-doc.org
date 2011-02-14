@@ -192,46 +192,25 @@ once and the data is not downloaded multiple times.
 #+results[5b2ff918c69c8588ceb2ff6b9f297e68c8a24e08]: raw-data
 [[file:2010.csv]]
 
-The next two code block should probably be combined into a single
-python code block...  They return the names of the offensive
-statistics which we will be testing for correlation.
+The next code block returns the names of the offensive statistics
+which we will be testing for correlation.
 
 #+source: stat-headers
-#+begin_src sh :results output :cache yes
-  curl http://www.retrosheet.org/gamelogs/glfields.txt \
-      |sed -n '57,74p' glfields.txt \
-      |cut -c14- \
-      |grep -v "^ " \
-      |cut -d "." -f1 |cut -d "(" -f1
+#+begin_src python :results list :cache yes :return fields
+  import urllib2
+  url = 'http://www.retrosheet.org/gamelogs/glfields.txt'
+  fp = urllib2.urlopen(url)
+  fields = []
+  for line in fp:
+      if line.find('Visiting team offensive statistics') != -1:
+          line = fp.readline()
+          while line.find('Visiting team pitching statistics') == -1:
+              if line[13] != ' ':
+                  fields.append(line.strip().split('.')[0].split('(')[0])
+              line = fp.readline()
 #+end_src
 
-#+results[7d12e3d1647a593064f8551ea8b5e06ec094ced4]: stat-headers
-#+begin_example
-at-bats
-hits
-doubles
-triples
-homeruns
-RBI
-sacrifice hits
-sacrifice flies 
-hit-by-pitch
-walks
-intentional walks
-strikeouts
-stolen bases
-caught stealing
-grounded into double plays
-awarded first on catcher's interference
-left on base
-#+end_example
-
-#+source: stat-headers-list
-#+begin_src emacs-lisp :var headers=stat-headers :results list
-  (split-string headers "\n")
-#+end_src
-
-#+results: stat-headers-list
+#+results: stat-headers
 - at-bats
 - hits
 - doubles
@@ -270,7 +249,7 @@ This code block uses the =R= statistical programming language to
 calculate correlations.
 
 #+source: analysis
-#+begin_src R :var headers=stat-headers-list :var data=offensive-stats
+#+begin_src R :var headers=stat-headers :var data=offensive-stats
   # apply the headers to the list
   headers[[18]] <- "Attendance"
   colnames(data) <- headers[1,]
@@ -285,7 +264,6 @@ calculate correlations.
   
   # return the name of the most correlated column
   rownames(corrln)[which.max(corrln)]
-
 #+end_src
 
 Then in some text in this portion of the example we can display the
