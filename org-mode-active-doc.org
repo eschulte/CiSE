@@ -88,7 +88,138 @@ place automatically.
 #+attr_latex: width=\textwidth
 [[file:overview.pdf]]
 
-* Features
+* Example Application
+This example will show correlation of home team offensive statistics
+with attendance for the src_sh[:var season=season]{echo $season}
+season.
+
+#+results: season
+: 2010
+
+This first simple code block translates the season into the url used
+to grab the season statistics from http://www.retrosheet.org.
+
+#+source: url
+#+begin_src sh :var season=season
+  echo "http://www.retrosheet.org/gamelogs/gl$season.zip"
+#+end_src
+
+Next we grab the statistics, saving them to a local text file.  The
+=:cache yes= header argument ensures that the code block is only run
+once and the data is not downloaded multiple times.
+
+#+source: raw-data
+#+begin_src sh :cache yes :var url=url :file 2010.csv
+  wget $url && \
+      unzip -p gl2010.zip > 2010.csv && \
+      rm gl2010.zip
+#+end_src
+
+#+results[5b2ff918c69c8588ceb2ff6b9f297e68c8a24e08]: raw-data
+[[file:2010.csv]]
+
+The next two code block should probably be combined into a single
+python code block...  They return the names of the offensive
+statistics which we will be testing for correlation.
+
+#+source: stat-headers
+#+begin_src sh :results output :cache yes
+  curl http://www.retrosheet.org/gamelogs/glfields.txt \
+      |head -74 \
+      |tail -17 \
+      |cut -c14- \
+      |grep -v "^ " \
+      |cut -d "." -f1 |cut -d "(" -f1
+#+end_src
+
+#+results[7d12e3d1647a593064f8551ea8b5e06ec094ced4]: stat-headers
+#+begin_example
+hits
+doubles
+triples
+homeruns
+RBI
+sacrifice hits
+sacrifice flies 
+hit-by-pitch
+walks
+intentional walks
+strikeouts
+stolen bases
+caught stealing
+grounded into double plays
+awarded first on catcher's interference
+left on base
+#+end_example
+
+#+source: stat-headers-list
+#+begin_src emacs-lisp :var headers=stat-headers :results list
+  (split-string headers "\n")
+#+end_src
+
+#+results: stat-headers-list
+- hits
+- doubles
+- triples
+- homeruns
+- RBI
+- sacrifice hits
+- sacrifice flies 
+- hit-by-pitch
+- walks
+- intentional walks
+- strikeouts
+- stolen bases
+- caught stealing
+- grounded into double plays
+- awarded first on catcher's interference
+- left on base
+
+This code block collects the offensive statistics from the raw data
+file.
+
+#+source: offensive-stats
+#+begin_src sh :var file=raw-data
+  cat $file \
+      |awk '{for (x=50; x<=66; x++) {  printf "%s ", $x } print $18 }' FS=","
+#+end_src
+
+This code block uses the =R= statistical programming language to
+calculate correlations.
+
+#+source: analysis
+#+begin_src R :var headers=stat-headers-list :var data=offensive-stats
+  # apply the headers to the list
+  
+  # perform a simple correlation of each column with the attendence
+  
+  # return the name of the most correlated column
+
+#+end_src
+
+Then in some text in this portion of the example we can display the
+name of the most correlated column using an inline code block.  The
+home team offensive statistic most correlated with game attendance is
+the src_sh[:var stat=analysis]{echo $stat}.
+
+Using gnuplot we can plot histograms of the most correlated statistic
+against the attendance, maybe doing something cute like using images
+of baseball bats for the histogram bars...
+
+#+begin_src gnuplot
+  
+#+end_src
+
+Finally we mention that it is trivial for the reader of the paper not
+only to re-run all of these calculations exactly as performed in the
+original export of the data, but also to change the value of the
+season at the beginning of the example, and to then re-run the
+analysis on a new season.
+
+* Conclusion
+The following features make Org-mode an excellent tool enabling
+reproducible research. (will need to condense this drastically).
+
 - Natural :: Org-mode documents can be used simply as plain text
      notes, as a hierarchical outlining system, or as an entire
      laboratory.  These various levels of sophistication enable quick
@@ -136,27 +267,4 @@ place automatically.
      can be confident that it will be able to adapt to new languages
      or modes of development.
 
-* Example Application
-Star spectroscopy using data from the Far Ultraviolet Spectroscopic
-Explorer (FUSE) project funded by NASA which---through a satellite
-orbiting the earth from June 24th 1999 through October 18th
-2009---collected data from a large portion of the electromagnetic
-spectrum.  The FUSE project performed over 6000 observations of over
-3000 separate astronomical targets.
-
-grab the data
-#+results: url
-: ftp://archive.stsci.edu/pub/fuse/data/a0010101/a00101010011attagfidf.fit.gz
-
-#_source: raw-data
-#+begin_src sh :var url=url :cache yes :file idf.fit
-  curl $url|gunzip > idf.fit
-#+end_src
-
-#+results[30b41ae899f5d3da6c3a8a897a103e1ae7c6e67b]:
-[[file:idf.fit]]
-
-
-
-* Conclusion
 * COMMENT How to Export this Document
