@@ -254,8 +254,8 @@ file.
 
 #+source: offensive-stats
 #+begin_src sh :var file=raw-data
-  cat $file \
-      |awk '{for (x=50; x<=66; x++) {  printf "%s ", $x } print $18 }' FS=","
+  awk '{for (x=50; x<=66; x++) {  printf "%s ", $x } print $18 }' FS="," \
+      < $file
 #+end_src
 
 This code block uses the =R= statistical programming language to
