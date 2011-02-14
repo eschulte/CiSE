@@ -1,19 +1,33 @@
 #+Title: Active Documents with Org-mode
 #+Author:
+#+LATEX_HEADER: \usepackage{attrib}
 #+Options: ^:nil toc:nil
 
 \begin{abstract}
 
-  Org-mode is a simple markup language for hierarchical plain text
-  file containing data, code and prose.  An entire research project
-  can live in a single Org-mode file.  Org-mode provides support for
-  initial note taking, planning and task managment, for embedded code
-  and data which can be executed from within the document, and for
-  export to a number of backends for sharing intermediate results and
-  for publishing journal-quality articles.
+  Reproducibility is essential to peer reviewed research, however,
+  refereed scientific publications often lack the information required
+  to reproduce the research and analysis referenced described in the
+  work.
+  
+  #+begin_quote
+    An article about computational science in a scientific publication
+    is not the scholarship itself, it is merely advertising of the
+    scholarship.  The actual scholarship is the complete software
+    development environment and complete set of instructions which
+    generated the figures.
 
-  This article will include overview of key features, example, and
-  discussion.
+    \attrib{David L. Donoho}
+  #+end_quote
+  
+  Org-mode is a simple plain text markup language for hierarchical
+  documents allowing intermingled data, code and prose.  An entire
+  research project including; initial note taking, planning and task
+  management, experimentation, analysis and publication, may take
+  place within a single Org-mode document.  This article introduces
+  Org-mode including a overview of syntax, a working example of
+  reproducible research, and motivation for the features which make
+  Org-mode a particularly useful tool for the scientific researcher.
 
 \end{abstract}
 
@@ -88,7 +102,7 @@ place automatically.
 #+attr_latex: width=\textwidth
 [[file:overview.pdf]]
 
-* Example Application
+* COMMENT Example Application
 This example will show correlation of home team offensive statistics
 with attendance for the src_sh[:var season=season]{echo $season}
 season.
