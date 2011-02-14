@@ -31,14 +31,28 @@
 
 \end{abstract}
 
-* Overview
-Org-mode is a plain text document format which allows data, code and
-prose to be co-mingled in a single document.  In addition Org-mode
-provides sophisticated task managment features.  This article focuses
-on the application of Org-mode to research projects including storing
-and evaluating data and code embedded in Org-mode documents, the
-export of Org-mode documents for publication, and the automatic
-re-evaluation and re-generation of analysis and figures during export.
+* Introduction
+
+Org-mode was initially developed as a simple outlining tool intended
+for note taking and brainstorming.  It was later augmented with task
+management tools---enabling notes to be transformed into tasks with
+deadlines and priorities---and with syntax for the inclusion of
+tables, data blocks, and active code blocks.  Org-mode may still be
+used as a simple plain-text note taking system, however increasingly
+sophisticated features may be gradually introduced as the comfort of
+the user permits.
+
+Reproducible Research (RR) is the practice of publishing scientific
+results with the software environment and data required for
+reproduction of all computational analysis presented in the
+publication.  This introduction will focus on those aspects of
+Org-mode which enable the practice of RR---for information on other
+aspects of Org-mode see the online manual [fn:2] and the community
+wiki [fn:3].  Org-mode supports RR through syntax for including
+in-line data and code, mechanisms for evaluating embedded code, and
+publishing functionality which may be used to automate the
+computational analysis and generation of figures included in a
+publication.
 
 * Syntax
 ** Basics of Org-mode Syntax
@@ -286,3 +300,5 @@ reproducible research. (will need to condense this drastically).
 [fn:1] The information used here was obtained free of charge from and
 is copyrighted by Retrosheet.  Interested parties may contact
 Retrosheet at "www.retrosheet.org".
+[fn:2] http://orgmode.org/manual/
+[fn:3] http://orgmode.org/worg/
