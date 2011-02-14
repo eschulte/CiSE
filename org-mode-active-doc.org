@@ -74,13 +74,47 @@ Org-mode uses many such keywords for associating information with
 headlines.
 
 ** Code and Data
+Using a simple `block' syntax both code and data may be embedded in
+Org-mode documents.  The following demonstrate both a data block and a
+code block as seen form within an Org-mode document.
 
+#+begin_src org :exports code
+  ,First a data block.
+  ,#+begin_example
+  ,  raw textual data
+  ,#+end_example
+  
+  ,Second a code block.
+  ,#+begin_src sh
+  ,  echo "shell script code"
+  ,#+end_src
+#+end_src
 
+Such blocks may be named, allowing their contents to be referenced
+form elsewhere in the Org-mode file.  The following augments the
+previous example with references, allowing the shell script to
+reference the contents of the data block.
 
-- tables
-- blocks of data
-- blocks of code
-  - (some) header arguments
+#+begin_src org :exports code
+  ,First a data block.
+  ,#+results: raw-data
+  ,#+begin_example
+  ,  raw textual data
+  ,#+end_example
+  
+  ,Second a code block.
+  ,#+begin_src sh :var text=raw-data
+  ,  echo $text|wc
+  ,#+end_src
+  
+  ,#+results:
+  ,: 1       3      17
+#+end_src
+
+Such cross references between the code and data elements of an
+Org-mode file turn Org-mode into a powerful multi-lingual programming
+environment, in which data and code expressed in many different
+programming languages may interact.
 
 * Evaluation
 Active code and data blocks in Org-mode documents can be named, al-
