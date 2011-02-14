@@ -6,8 +6,7 @@
 \begin{abstract}
   Reproducibility is essential to peer reviewed research, however,
   refereed scientific publications often lack the information required
-  to reproduce the research and analysis referenced described in the
-  work.
+  to reproduce the research and analysis described in the work.
   \begin{quote}
     An article about computational science in a scientific publication
     is not the scholarship itself, it is merely advertising of the
@@ -38,16 +37,17 @@ sophisticated features may be gradually introduced as the comfort of
 the user permits.
 
 Reproducible Research (RR) is the practice of publishing scientific
-results with the software environment and data required for
+results along with the software environment and data required for
 reproduction of all computational analysis presented in the
-publication.  This introduction will focus on those aspects of
-Org-mode which enable the practice of RR---for information on other
-aspects of Org-mode see the online manual [fn:2] and the community
-wiki [fn:3].  Org-mode supports RR through syntax for including
+publication.  Org-mode supports RR through syntax for including
 in-line data and code, mechanisms for evaluating embedded code, and
 publishing functionality which may be used to automate the
 computational analysis and generation of figures included in a
-publication.
+publication.  This introduction will focus on these aspects of
+Org-mode which enable the practice of RR---for information on other
+aspects of Org-mode see the online manual [fn:2] and the community
+wiki [fn:3]---this article is available as an Org-mode document with
+which the examples presented below may be interactively executed [fn:4].
 
 * Syntax
 ** Outlines
@@ -118,9 +118,9 @@ programming languages may interact.
 
 * Evaluation
 Code and data references make possible strings of /chained
-evaluation/.  The following shows the series of actions which result
-when the =analyze= code block is evaluated (shown in Figure
-\ref{fig:chained-evaluation}).
+evaluation/.  Figure \ref{fig:chained-evaluation} shows the series of
+actions which result when the =analyze= code block is evaluated
+interactively or as part of export to a publishable.
 
 #+label: fig:chained-evaluation
 #+Caption: Active Org-mode Document
@@ -348,3 +348,4 @@ is copyrighted by Retrosheet.  Interested parties may contact
 Retrosheet at "www.retrosheet.org".
 [fn:2] http://orgmode.org/manual/
 [fn:3] http://orgmode.org/worg/
+[fn:4] https://github.com/eschulte/CiSE/raw/master/org-mode-active-doc.org
