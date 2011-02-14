@@ -10,7 +10,18 @@ The actual article will live in file:org-mode-active-doc.org (name of
 file and subject obviously subject to change).  This document can be
 used for project management.
 
-* Tasks [1/3]
+* Tasks [1/4]
+** TODO Department Guidelines
+http://www.computer.org/portal/web/peerreviewmagazines/dgcise
+
+- must be roughly 3000 words, less 250 for every figure
+  #+begin_src sh
+    pdftotext org-mode-active-doc.pdf - |wc -w
+  #+end_src
+
+  #+results:
+  : 1409
+
 ** DONE apply the CiSE template
 no specific template required
 

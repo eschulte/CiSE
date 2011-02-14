@@ -268,7 +268,6 @@ reproducible research. (will need to condense this drastically).
      or modes of development.
 
 * COMMENT How to Export this Document
-
 * Footnotes
 [fn:1] The information used here was obtained free of charge from and
 is copyrighted by Retrosheet.  Interested parties may contact
