@@ -8,5 +8,5 @@
 *.pdf
 
 # Don't ignore the raw overview figure
-!overview.tex
-!overview.pdf
+!chained-evaluation.tex
+!chained-evaluation.pdf

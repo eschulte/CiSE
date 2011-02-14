@@ -117,15 +117,16 @@ environment, in which data and code expressed in many different
 programming languages may interact.
 
 * Evaluation
-Active code and data blocks in Org-mode documents can be named, al-
-lowing them to reference one another. This ability makes it possible
-for easily combine snippets of code from various languages into a
-single func- tional package. Figure 1 shows a series of chained
-evaluation which can be triggered either interactively by the user, or
-upon export of the document.
+Code and data references make possible strings of /chained
+evaluation/.  The following shows the series of actions which result
+when the =analyze= code block is evaluated (shown in Figure
+\ref{fig:chained-evaluation}).
 
-When the =analyze= code block is evaluated, the following events take
-place automatically.
+#+label: fig:chained-evaluation
+#+Caption: Active Org-mode Document
+#+attr_latex: width=\textwidth
+[[file:chained-evaluation.pdf]]
+
 1. The =analyze= code block is evaluated.  The =:var data=data= header
    argument causes the =data= Org-mode to evaluate the =data= reference.
 
@@ -161,12 +162,7 @@ place automatically.
    body of the Org-mode document.  On export this link will embed the
    linked figure into the exported document.
 
-#+label: fig:overview
-#+Caption: Active Org-mode Document
-#+attr_latex: width=\textwidth
-[[file:overview.pdf]]
-
-* COMMENT Example Application
+* Example Application
 This example will show correlation of home team offensive statistics
 with attendance for the src_sh[:var season=season]{echo $season}
 season.

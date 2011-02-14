@@ -20,7 +20,7 @@ http://www.computer.org/portal/web/peerreviewmagazines/dgcise
   #+end_src
 
   #+results:
-  : 1525
+  : 1826
 
 ** DONE apply the CiSE template
 no specific template required
