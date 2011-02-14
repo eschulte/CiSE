@@ -4,22 +4,18 @@
 #+Options: ^:nil toc:nil
 
 \begin{abstract}
-
   Reproducibility is essential to peer reviewed research, however,
   refereed scientific publications often lack the information required
   to reproduce the research and analysis referenced described in the
   work.
-  
-  #+begin_quote
+  \begin{quote}
     An article about computational science in a scientific publication
     is not the scholarship itself, it is merely advertising of the
     scholarship.  The actual scholarship is the complete software
     development environment and complete set of instructions which
     generated the figures.
-
     \attrib{David L. Donoho}
-  #+end_quote
-  
+  \end{quote}
   Org-mode is a simple plain text markup language for hierarchical
   documents allowing intermingled data, code and prose.  An entire
   research project including; initial note taking, planning and task
@@ -28,7 +24,6 @@
   Org-mode including a overview of syntax, a working example of
   reproducible research, and motivation for the features which make
   Org-mode a particularly useful tool for the scientific researcher.
-
 \end{abstract}
 
 * Introduction
@@ -55,12 +50,33 @@ computational analysis and generation of figures included in a
 publication.
 
 * Syntax
-** Basics of Org-mode Syntax
-- Meta-information at the top
-- headlines and folding
-- links
+** Outlines
+Org-mode documents are organized as hierarchical outline.  As such
+they may be folded and expanded so that at any given time most of the
+content of the document is hidden from view.  In this way even very
+large documents may be comfortably navigated in a manner similar to
+that of a file system.  Headlines are indicated by leading =*='s as
+shown below in the folded view of this article from within Org-mode.
+
+#+source: folded-org
+#+headers: :exports results
+#+begin_src sh :var this=(buffer-file-name) :results output
+  cat $this|grep "^\*"|sed 's/$/.../g'
+#+end_src
+
+#+label: fig:folded-org
+#+results: folded-org
+
+The =...='s at the end of each line indicate that the content of the
+heading is hidden from view.  Notice that the heading beginning with
+the keyword =COMMENT= is not included in the exported document.
+Org-mode uses many such keywords for associating information with
+headlines.
 
 ** Code and Data
+
+
+
 - tables
 - blocks of data
 - blocks of code
