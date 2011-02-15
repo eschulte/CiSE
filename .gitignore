@@ -6,6 +6,7 @@
 *.log
 *.out
 *.pdf
+*.png
 
 # Don't ignore the raw overview figure
 !chained-evaluation.tex

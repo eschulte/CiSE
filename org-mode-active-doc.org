@@ -2,6 +2,7 @@
 #+Author:
 #+LATEX_HEADER: \usepackage{attrib}
 #+Options: ^:nil toc:nil
+#+Startup: hideblocks
 
 \begin{abstract}
   Reproducibility is essential to peer reviewed research, however,
@@ -163,39 +164,82 @@ interactively or as part of export to a publishable.
    linked figure into the exported document.
 
 * Example Application
+** Download External Data
 This example will show correlation of home team offensive statistics
 with attendance for the src_sh[:var season=season]{echo $season}
 season.
 
-#+results: season
-: 2010
+#+begin_src org
+  ,#+results: season
+  ,: 2010
+#+end_src
 
-This first simple code block translates the season into the url used
-to grab the season statistics from http://www.retrosheet.org [fn:1].
+#+source: season
+#+begin_src emacs-lisp :exports none
+  2010
+#+end_src
+
+This first code block translates the numerical season shown above into
+the url for =retrosheet.org= [fn:1].
+
+#+begin_src org
+  ,#+source: url
+  ,#+begin_src sh :var season=season :exports none
+  ,  echo "http://www.retrosheet.org/gamelogs/gl$season.zip"
+  ,#+end_src
+#+end_src
 
 #+source: url
-#+begin_src sh :var season=season
+#+begin_src sh :var season=season :exports none
   echo "http://www.retrosheet.org/gamelogs/gl$season.zip"
 #+end_src
 
-Next we grab the statistics, saving them to a local text file.  The
+The statistics are downloaded and saved to a local text file.  The
 =:cache yes= header argument ensures that the code block is only run
-once and the data is not downloaded multiple times.
+once and the data is not re-downloaded every time the code block is
+evaluated.
+
+#+begin_src org
+  ,#+source: raw-data
+  ,#+headers: :exports none
+  ,#+begin_src sh :cache yes :var url=url :file 2010.csv
+    wget $url && \
+        unzip -p gl2010.zip > 2010.csv && \
+        rm gl2010.zip
+  ,#+end_src
+#+end_src
 
 #+source: raw-data
+#+headers: :exports none
 #+begin_src sh :cache yes :var url=url :file 2010.csv
   wget $url && \
       unzip -p gl2010.zip > 2010.csv && \
       rm gl2010.zip
 #+end_src
 
-#+results[5b2ff918c69c8588ceb2ff6b9f297e68c8a24e08]: raw-data
-[[file:2010.csv]]
-
 The next code block returns the names of the offensive statistics
 which we will be testing for correlation.
 
+#+begin_src org
+  ,#+source: stat-headers
+  ,#+headers: :exports none
+  ,#+begin_src python :results list :cache yes :return fields
+    import urllib2
+    url = 'http://www.retrosheet.org/gamelogs/glfields.txt'
+    fp = urllib2.urlopen(url)
+    fields = []
+    for line in fp:
+        if line.find('Visiting team offensive statistics') != -1:
+            line = fp.readline()
+            while line.find('Visiting team pitching statistics') == -1:
+                if line[13] != ' ':
+                    fields.append(line.strip().split('.')[0].split('(')[0])
+                line = fp.readline()
+  ,#+end_src
+#+end_src
+
 #+source: stat-headers
+#+headers: :exports none
 #+begin_src python :results list :cache yes :return fields
   import urllib2
   url = 'http://www.retrosheet.org/gamelogs/glfields.txt'
@@ -210,51 +254,68 @@ which we will be testing for correlation.
               line = fp.readline()
 #+end_src
 
-#+results: stat-headers
-- at-bats
-- hits
-- doubles
-- triples
-- homeruns
-- RBI
-- sacrifice hits
-- sacrifice flies 
-- hit-by-pitch
-- walks
-- intentional walks
-- strikeouts
-- stolen bases
-- caught stealing
-- grounded into double plays
-- awarded first on catcher's interference
-- left on base
-
+** Parsing
 The next two code blocks collect the offensive statistics, and the
 attendance, from the raw data file.
 
+#+begin_src org
+  ,#+source: offensive-stats
+  ,#+headers: :exports none
+  ,#+begin_src sh :var file=raw-data
+    awk '{for (x=50; x<=66; x++) {  printf "%s ", $x } printf "\n" }' FS="," \
+        < $file
+  ,#+end_src
+#+end_src
+#+begin_src org
+  ,#+source: attendance
+  ,#+headers: :exports none
+  ,#+begin_src sh :var file=raw-data
+    awk '{ print $18 }' FS="," < $file
+  ,#+end_src
+#+end_src
+
 #+source: offensive-stats
+#+headers: :exports none
 #+begin_src sh :var file=raw-data
   awk '{for (x=50; x<=66; x++) {  printf "%s ", $x } printf "\n" }' FS="," \
       < $file
 #+end_src
 
 #+source: attendance
+#+headers: :exports none
 #+begin_src sh :var file=raw-data
   awk '{ print $18 }' FS="," < $file
 #+end_src
 
-# There seems to be a problem in parsing rows 141 and 674. E.g. 674 looks like this:
-
-# 674  0  0  1  0 32  6  2  0  0   0   0   0   0   5   0   6   2 30"
-
-# There are two workaround lines in the R block as a result, but they
-# shouldn't be necessary.
-
+** Analysis
 This code block uses the =R= statistical programming language to
 calculate correlations.
 
+#+begin_src org
+  ,#+source: analysis
+  ,#+headers: :var headers=stat-headers :var stats=offensive-stats
+  ,#+begin_src R :var attendance=attendance :cache yes :exports none
+    # apply the headers to the list
+    colnames(stats) <- headers
+    
+    ## The following lines are required because parsing bugs are causing
+    ## corrupt data in these two rows.
+    badrows <- c(141, 674)
+    stats <- stats[-badrows,]
+    attendance <- attendance[-badrows,]
+    attendance <- as.integer(attendance)
+    
+    # perform a simple correlation of each column with the attendance
+    corrln <- cor(stats, attendance)
+    
+    # return the name of the most correlated column
+    rownames(corrln)[which.max(corrln)]
+  ,#+end_src
+#+end_src
+
 #+source: analysis
-#+begin_src R :var headers=stat-headers :var stats=offensive-stats :var attendance=attendance
+#+headers: :var headers=stat-headers :var stats=offensive-stats
+#+begin_src R :var attendance=attendance :cache yes :exports none
   # apply the headers to the list
   colnames(stats) <- headers
   
@@ -265,31 +326,78 @@ calculate correlations.
   attendance <- attendance[-badrows,]
   attendance <- as.integer(attendance)
   
-  # perform a simple correlation of each column with the attendence
+  # perform a simple correlation of each column with the attendance
   corrln <- cor(stats, attendance)
   
   # return the name of the most correlated column
   rownames(corrln)[which.max(corrln)]
 #+end_src
 
-Then in some text in this portion of the example we can display the
-name of the most correlated column using an inline code block.  The
-home team offensive statistic most correlated with game attendance is
-the src_sh[:var stat=analysis]{echo $stat}.
+The most correlated column, namely src_sh[:var stat=analysis]{echo $stat}, can
+be mentioned in the text using an inline code block.  The Org-mode
+syntax for an inline block can be seen below.
 
-Using gnuplot we can plot histograms of the most correlated statistic
-against the attendance, maybe doing something cute like using images
-of baseball bats for the histogram bars...
-
-#+begin_src gnuplot
-  
+#+begin_src org
+  The most correlated column (src_sh[:var stat=analysis]{echo $stat})
+  can be mentioned in the text using an inline code block.  The Org-mode
+  syntax for an inline block can be seen below.
 #+end_src
 
-Finally we mention that it is trivial for the reader of the paper not
-only to re-run all of these calculations exactly as performed in the
-original export of the data, but also to change the value of the
-season at the beginning of the example, and to then re-run the
-analysis on a new season.
+** Display
+Using gnuplot we can plot the number of forced walks and the
+attendance for the five games with the most forced walks (see Figure
+\ref{fig:top-5}).
+
+#+begin_src org
+  ,#+source: top-8
+  ,#+begin_src sh :var data=raw-data :cache yes :exports none
+    cat $data|awk '{print $60,$18,$7"-"$4}' FS=","|sed 's/"//g'|sort -rn |head -5
+  ,#+end_src
+#+end_src
+#+begin_src org
+  ,#+source: figure
+  ,#+begin_src gnuplot :var data=top-8 :file plot.png :cache yes :exports results
+    set yrange [0:6]
+    set y2range [0:50000]
+    set style data histogram
+    set style histogram clustered
+    set xtic rotate by -45 scale 0
+    plot data using 1:xtic(3) title 'forced walks', \
+         data using 2:xtic(3) axes x1y2 title 'attendance'
+  ,#+end_src
+#+end_src
+
+#+source: top-8
+#+begin_src sh :var data=raw-data :cache yes :exports none
+  cat $data|awk '{print $60,$18,$7"-"$4}' FS=","|sed 's/"//g'|sort -rn |head -5
+#+end_src
+
+#+source: figure
+#+begin_src gnuplot :var data=top-8 :file plot.png :cache yes :exports results
+  set yrange [0:6]
+  set y2range [0:50000]
+  set y2tics border
+  set ylabel 'forced walks'
+  set y2label 'attendance'
+  set style data histogram
+  set style histogram clustered
+  set xtic rotate by -45 scale 0
+  plot data using 1:xtic(3) title 'forced walks', \
+       data using 2:xtic(3) axes x1y2 title 'attendance'
+#+end_src
+
+#+label: fig:top-5
+#+attr_latex: width=0.8\textwidth
+#+Caption: Top 5 games by forced walks, with forced walks and attendance shown.
+#+results: figure
+[[file:plot.png]]
+
+Co-mingling code and prose as demonstrated in this example benefits
+the author by collecting all relevant information into a single place,
+and benefits the reader through ensuring not only easy reproduction of
+the calculations performed in the work, but also easy extension, for
+example the reader of this article may easily re-run all analysis over
+other baseball seasons to test the generality of the result.
 
 * Conclusion
 The following features make Org-mode an excellent tool enabling
@@ -343,10 +451,16 @@ reproducible research. (will need to condense this drastically).
      or modes of development.
 
 * COMMENT How to Export this Document
+Evaluate the following emacs-lisp code block to configure Org-mode for
+export of this paper.
+#+begin_src emacs-lisp :results silent
+  (setf org-babel-default-header-args:org '((:exports . "code")))
+#+end_src
+
 * Footnotes
 [fn:1] The information used here was obtained free of charge from and
-is copyrighted by Retrosheet.  Interested parties may contact
-Retrosheet at "www.retrosheet.org".
+       is copyrighted by Retrosheet.  Interested parties may contact
+       Retrosheet at "www.retrosheet.org".
 [fn:2] http://orgmode.org/manual/
 [fn:3] http://orgmode.org/worg/
 [fn:4] https://github.com/eschulte/CiSE/raw/master/org-mode-active-doc.org
