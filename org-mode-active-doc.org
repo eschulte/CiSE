@@ -451,11 +451,37 @@ reproducible research. (will need to condense this drastically).
      or modes of development.
 
 * COMMENT How to Export this Document
-Evaluate the following emacs-lisp code block to configure Org-mode for
-export of this paper.
-#+begin_src emacs-lisp :results silent
-  (setf org-babel-default-header-args:org '((:exports . "code")))
-#+end_src
+
+- Requirements :: Ensure that you have both recent versions of [[http://www.gnu.org/software/emacs/][Emacs]]
+  (23 or greater) and [[http://orgmode.org/][Org-mode]] (7.5 or greater) installed on your
+  system.  To evaluate the code blocks in this paper the relevant
+  programming languages must be installed on your system, these
+  include;
+  - [[http://www.python.org/][Python]]
+  - [[http://www.r-project.org/][R]] and [[http://ess.r-project.org/][ESS]]
+  - [[http://www.gnuplot.info/][gnuplot]] and [[http://www.emacswiki.org/emacs/GnuplotMode][gnuplot-mode]]
+
+- Configuration :: Evaluate the following emacs-lisp code block to
+  configure Org-mode for export of this paper.
+  #+begin_src emacs-lisp :results silent
+    ;; first it is necessary to ensure that Org-mode loads support for the
+    ;; languages used by code blocks in this article
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '((sh . t)
+       (org . t)
+       (emacs-lisp . t)
+       (python . t)
+       (R . t)
+       (gnuplot . t)))
+    ;; then we'll remove the need to confirm evaluation of each code
+    ;; block, NOTE: if you are concerned about execution of malicious code
+    ;; through code blocks, then comment out the following line
+    (setq org-confirm-babel-evaluate nil)
+    ;; finally we'll customize the default behavior of Org-mode code blocks
+    ;; so that they can be used to display examples of Org-mode syntax
+    (setf org-babel-default-header-args:org '((:exports . "code")))
+  #+end_src
 
 * Footnotes
 [fn:1] The information used here was obtained free of charge from and
