@@ -33,7 +33,8 @@ comfort level permits.
 Reproducible Research (RR) is the practice of publishing scientific
 results along with the software environment and data required for
 reproduction of all computational analysis presented in the
-publication.  Reproducibility is essential to peer reviewed research,
+publication \cite{cise-rr}.  Reproducibility is essential to peer
+reviewed research,
 however, refereed scientific publications often lack the information
 required to reproduce the research and analysis described in the work.
 
@@ -446,7 +447,7 @@ reproducible research. (will need to condense this drastically).
      easily be used on any machine.
 - Provenance :: Given that Org-mode files are plain text, they
      integrate easily into version control systems, allowing for
-     revision tracking and collaboration.
+     revision tracking and collaboration \cite{cise-vc}.
 - Consistency :: A single Org-mode document can be used for every
      stage of a research project from brain-storming, through initial
      development, and to publication.  This greatly reduces the burden

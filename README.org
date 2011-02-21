@@ -10,7 +10,7 @@ The actual article will live in file:org-mode-active-doc.org (name of
 file and subject obviously subject to change).  This document can be
 used for project management.
 
-* Tasks [2/7]
+* Tasks [3/7]
 ** TODO add some baseball explanation
 Provide some minimal intuition for what "Home Team Offensive Stats"
 means.
@@ -19,7 +19,7 @@ means.
 Include step-by-step for export after the configuration code has been
 evaluated.
 
-** TODO add references
+** DONE add references
 - Donoho Quote
 - Emacs refs
 - The CiSE special issue on "Reproducible Research" (January 2009)
