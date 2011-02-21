@@ -10,7 +10,7 @@ The actual article will live in file:org-mode-active-doc.org (name of
 file and subject obviously subject to change).  This document can be
 used for project management.
 
-* Tasks [4/7]
+* Tasks [4/6]
 ** TODO add some baseball explanation
 Provide some minimal intuition for what "Home Team Offensive Stats"
 means.
@@ -26,16 +26,16 @@ evaluated.
 - Under Conclusions-Provenance, the recent Scientific Programming
   article on version control systems (copy attached)
 
-** TODO Department Guidelines
+** Department Guidelines
 http://www.computer.org/portal/web/peerreviewmagazines/dgcise
 
 - must be roughly 3000 words, less 250 for every figure
   #+begin_src sh :var basename=(file-name-sans-extension (buffer-file-name))
-    pdftotext $basename.pdf - |wc -w
+    pdftotext org-mode-active-doc.pdf - |wc -w
   #+end_src
 
   #+results:
-  : 0
+  : 2213
 
 ** DONE apply the CiSE template
 no specific template required
