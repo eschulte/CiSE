@@ -19,7 +19,6 @@
 \end{abstract}
 
 * Introduction
-
 Org-mode is implemented as a part of the Emacs text editor \cite{emacs}.
 It was initially developed as a simple outlining tool intended
 for note taking and brainstorming, and was later augmented with task
@@ -445,57 +444,58 @@ over other seasons by simply changing the value of the =season= code
 block above and re-exporting the file.
 
 * Conclusion
-The following features make Org-mode an excellent tool enabling
-reproducible research. (will need to condense this drastically).
+There are a number of features of Org-mode which make it a good choice
+for reproducible research; some of these are /essential/ for any RR
+tool, and other simply alleviate common burdens of practicing RR.
 
-- Natural :: Org-mode documents can be used simply as plain text
-     notes, as a hierarchical outlining system, or as an entire
-     laboratory.  These various levels of sophistication enable quick
-     adoption followed by gradual learning and mastery.
-- Navigation of Large Projects :: The hierarchical folding of Org-mode
-     documents enables users to comfortably read and edit even very
-     large files by hiding much of the file from plain site.
-- Familiar editing environment :: Org-mode leverages the sophisticated
-     editing modes available in Emacs for both natural and
-     computational languages.
-- Reproducibility :: Org-mode makes reproduction the analysis embedded
-     in a document trivial for both the original author and for
-     readers.
-- Portable :: Org-mode files are plain text ensuring that they can
-     easily be used on any machine.
-- Provenance :: Given that Org-mode files are plain text, they
-     integrate easily into version control systems, allowing for
-     revision tracking and collaboration \cite{cise-vc}.
-- Consistency :: A single Org-mode document can be used for every
-     stage of a research project from brain-storming, through initial
-     development, and to publication.  This greatly reduces the burden
-     on the author of tracking resources, and increases the chance
-     that all information required for reproduction of the work will
-     be maintained.
-- Open Source :: Org-mode is open source software.  Its inner workings
-     are publicly visible, and its copyright is owned by the Free
-     Software Foundation FSF.  This ensures that Org-mode and any work
-     deriving from Org-mode will always be fully open to public
-     scrutiny and modification.  These are essential qualities for
-     software tools used for reproducible research.  The transparency
-     required for computational results to be accepted by the
-     scientific community can only be achieved when the workings of
-     each tool in the scientist's tool chain is open to inspection and
-     verification.
-- Active community :: The Org-mode community provides ready support to
-     both novice users with basic questions and to developers seeking
-     to extend Org-mode.  The development of Org-mode would not have
-     been possible without the attention and effort of this community.
-- General and extensible :: A main design goal of Org-mode's support
-     for working with source code was generality.  As a result, it
-     displays no reproducible research or literate programming bias,
-     supports arbitrary programming languages, and exports to a wide
-     variety of file types, including ASCII, \LaTeX{}, HTML, and
-     DocBook.  Researchers and software developers who adopt Org-mode
-     can be confident that it will be able to adapt to new languages
-     or modes of development.
+Of those /essential/ properties, arguably the most important is that
+as part of Emacs, the Org-mode copyright is owned by the Free Software
+Foundation \cite{fsf}.  This ensures that Org-mode is now and will
+always be free and open source software.  This is directly related to
+two of the goals of RR.  First, Org-mode is available free of charge
+to install by any user on any system ensuring access to the software
+environment required for reproduction, and second, the source code
+specifying the inner workings of Org-mode is open to inspection,
+ensuring that the mechanisms through which Org-mode generates
+scientific results are open to review and verification.
 
+In addition to its open source pedigree, Org-mode benefits in other
+ways from its inclusion as part of Emacs.  Emacs is one of the oldest
+and most widely ported pieces of software in existence, with versions
+which run on all major operating systems.  This ensures that Org-mode
+documents can be incorporated into any working environment.  Emacs is
+also widely used by the scientific community for editing both prose
+documents and source code.  Through leveraging existing Emacs editing
+support Org-mode is able to offer its users a comfortable and familiar
+editing environment for all types of content.  Finally, due to
+Org-mode's implementation in the Emacs extension language, /Emacs
+Lisp/ \cite{elisp}, it is possible for users to customize the behavior
+of Org-mode to their particular needs and to add support for arbitrary
+new programming languages---Org-mode currently has support for over
+thirty programming languages.
 
+Org-mode addresses many common problems in the practice of RR.  Given
+that a single Org-mode document can be used for every stage of a
+research project from brain-storming, through software development and
+experimentation, to publication; the author is largely relieved of the
+burden of tracking resources required for reproduction of the work.
+Such large amounts of information will result in extremely large
+files, however the hierarchical folding of Org-mode documents enables
+users to comfortably read and edit such files, hiding much of the
+content from plain site.  These files are encoded in plain text, and
+as such, they can easily be used on any machine, and they integrate
+well with version control systems, allowing for revision tracking and
+collaboration \cite{cise-vc}.
+
+Org-mode documents can run the gambit from simple collections of
+plain-text notes, to complex laboratories housing data and analysis
+mechanisms, to publishing desks with facilities for the display and
+export of scientific results.  There is a friendly community of
+Org-mode users and developers who communicate through the Org-mode
+mailing list [fn:5]; through answering questions and helping each
+other to master Org-mode's many features, this community helps to
+solve one of the largest hurdles posed by any RR tool, namely learning
+how to use it.
 
 #+begin_LaTeX
 \bibliographystyle{plain}
@@ -559,3 +559,4 @@ reproducible research. (will need to condense this drastically).
 [fn:2] http://orgmode.org/manual/
 [fn:3] http://orgmode.org/worg/
 [fn:4] https://github.com/eschulte/CiSE/raw/master/org-mode-active-doc.org
+[fn:5] http://lists.gnu.org/mailman/listinfo/emacs-orgmode
