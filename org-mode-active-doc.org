@@ -175,7 +175,7 @@ interactively or as part of export to a publishable.
 ** Download External Data
 This example will show correlation of home team offensive statistics
 with attendance for the src_sh[:var season=season]{echo $season}
-season.
+Major League Baseball season.
 
 #+begin_src org
   ,#+results: season
@@ -187,8 +187,10 @@ season.
   2010
 #+end_src
 
-This first code block translates the numerical season shown above into
-the url for =retrosheet.org= [fn:1].
+This first code block, named =url=, translates the numerical season
+shown above into the url for the =retrosheet.org= [fn:1] website, a
+website devoted to the collection and curation of major league
+baseball statistics.
 
 #+begin_src org
   ,#+source: url
@@ -202,10 +204,11 @@ the url for =retrosheet.org= [fn:1].
   echo "http://www.retrosheet.org/gamelogs/gl$season.zip"
 #+end_src
 
-The statistics are downloaded and saved to a local text file.  The
-=:cache yes= header argument ensures that the code block is only run
-once and the data is not re-downloaded every time the code block is
-evaluated.
+With the =raw-data= code block, the zip file of statistics located at
+the specified url is downloaded and its contents are unpacked into a
+local text file named =2010.csv=.  The =:cache yes= header argument
+ensures that this code block is only run once and the data is not
+re-downloaded every time the results of the code block are referenced.
 
 #+begin_src org
   ,#+source: raw-data
@@ -225,8 +228,8 @@ evaluated.
       rm gl2010.zip
 #+end_src
 
-The next code block returns the names of the offensive statistics
-which we will be testing for correlation.
+Next the =stat-headers= code block returns a list of the names of the
+offensive statistics which we will be testing for correlation.
 
 #+begin_src org
   ,#+source: stat-headers
@@ -282,8 +285,9 @@ which we will be testing for correlation.
 - left on base
 
 ** Parsing
-The next two code blocks collect the offensive statistics, and the
-attendance, from the raw data file.
+The next two code blocks, =offensive-stats= and =attendance=, collect
+the offensive statistics, and the attendance, from the raw data file
+produced by the =raw-data= block above.
 
 #+begin_src org
   ,#+source: offensive-stats
@@ -315,8 +319,10 @@ attendance, from the raw data file.
 #+end_src
 
 ** Analysis
-This code block uses the =R= statistical programming language to
-calculate correlations.
+The =analysis= code block uses the =R= statistical programming
+language to calculate correlations between the outputs of the
+=offensive-stats= and =attendance= code blocks, whose values are saved
+into the =stats= and =attendance= variables respectively.
 
 #+begin_src org
   ,#+source: analysis
@@ -422,9 +428,10 @@ attendance for the five games with the most forced walks (see Figure
 Co-mingling code and prose as demonstrated in this example benefits
 the author by collecting all relevant information into a single place,
 and benefits the reader through ensuring not only easy reproduction of
-the calculations performed in the work, but also easy extension, for
-example the reader of this article may easily re-run all analysis over
-other baseball seasons to test the generality of the result.
+the calculations performed in the work, but also easy extension.  For
+example, the reader of this article may easily re-run all analysis
+over other seasons by simply changing the value of the =season= code
+block above and re-exporting the file.
 
 * Conclusion
 The following features make Org-mode an excellent tool enabling
