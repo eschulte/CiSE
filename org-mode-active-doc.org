@@ -261,6 +261,25 @@ which we will be testing for correlation.
               line = fp.readline()
 #+end_src
 
+#+results[97fdb2368b66e48faa6afb8b6eff34e00f05633b]: stat-headers
+- at-bats
+- hits
+- doubles
+- triples
+- homeruns
+- RBI
+- sacrifice hits
+- sacrifice flies 
+- hit-by-pitch
+- walks
+- intentional walks
+- strikeouts
+- stolen bases
+- caught stealing
+- grounded into double plays
+- awarded first on catcher's interference
+- left on base
+
 ** Parsing
 The next two code blocks collect the offensive statistics, and the
 attendance, from the raw data file.
@@ -301,7 +320,7 @@ calculate correlations.
 #+begin_src org
   ,#+source: analysis
   ,#+headers: :var headers=stat-headers :var stats=offensive-stats
-  ,#+begin_src R :var attendance=attendance :cache yes :exports none
+  ,#+begin_src R :var attendance=attendance :exports none
     # apply the headers to the list
     colnames(stats) <- headers
     
@@ -322,7 +341,7 @@ calculate correlations.
 
 #+source: analysis
 #+headers: :var headers=stat-headers :var stats=offensive-stats
-#+begin_src R :var attendance=attendance :cache yes :exports none
+#+begin_src R :var attendance=attendance :exports none
   # apply the headers to the list
   colnames(stats) <- headers
   
@@ -357,13 +376,13 @@ attendance for the five games with the most forced walks (see Figure
 
 #+begin_src org
   ,#+source: top-8
-  ,#+begin_src sh :var data=raw-data :cache yes :exports none
+  ,#+begin_src sh :var data=raw-data :exports none
     cat $data|awk '{print $60,$18,$7"-"$4}' FS=","|sed 's/"//g'|sort -rn |head -5
   ,#+end_src
 #+end_src
 #+begin_src org
   ,#+source: figure
-  ,#+begin_src gnuplot :var data=top-8 :file plot.png :cache yes :exports results
+  ,#+begin_src gnuplot :var data=top-8 :file plot.png :exports results
     set yrange [0:6]
     set y2range [0:50000]
     set style data histogram
@@ -375,12 +394,12 @@ attendance for the five games with the most forced walks (see Figure
 #+end_src
 
 #+source: top-8
-#+begin_src sh :var data=raw-data :cache yes :exports none
+#+begin_src sh :var data=raw-data :exports none
   cat $data|awk '{print $60,$18,$7"-"$4}' FS=","|sed 's/"//g'|sort -rn |head -5
 #+end_src
 
 #+source: figure
-#+begin_src gnuplot :var data=top-8 :file plot.png :cache yes :exports results
+#+begin_src gnuplot :var data=top-8 :file plot.png :exports results
   set yrange [0:6]
   set y2range [0:50000]
   set y2tics border
