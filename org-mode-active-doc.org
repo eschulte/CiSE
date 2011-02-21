@@ -497,6 +497,7 @@ reproducible research. (will need to condense this drastically).
 
 - Configuration :: Evaluate the following emacs-lisp code block to
   configure Org-mode for export of this paper.
+  #+source: configuration
   #+begin_src emacs-lisp :results silent
     ;; first it is necessary to ensure that Org-mode loads support for the
     ;; languages used by code blocks in this article
@@ -516,6 +517,22 @@ reproducible research. (will need to condense this drastically).
     ;; so that they can be used to display examples of Org-mode syntax
     (setf org-babel-default-header-args:org '((:exports . "code")))
   #+end_src
+
+- Export :: After installing all required software the following steps
+  can be used to export this paper to a number of different backends.
+  1. Open this document in Emacs
+  2. Evaluate the "Configuration" =emacs-lisp= code block immediately
+     previous in this document. This can be done with =C-c C-v p= to
+     jump to the previous code block, then =C-c C-c= to evaluate the
+     code block where =C-c= means press "c" while holding the control
+     key, =C-v= means press "v" while holding the control key, and so
+     forth.
+  3. Next use =C-c C-e= to open the Org-mode export dialog, which
+     displays a number of backend options and the key which should be
+     used to export to that backend, for example, press "d" to export
+     this document to a =.pdf= and open the resulting file in your
+     document reader, or press "b" to export this document to =.html=
+     and open the resulting file in your web browser.
 
 * Footnotes
 [fn:1] The information used here was obtained free of charge from and
