@@ -5,54 +5,61 @@
 #+Startup: hideblocks
 
 \begin{abstract}
-  Reproducibility is essential to peer reviewed research, however,
-  refereed scientific publications often lack the information required
-  to reproduce the research and analysis described in the work.
-  \begin{quote}
-    An article about computational science in a scientific publication
-    is not the scholarship itself, it is merely advertising of the
-    scholarship.  The actual scholarship is the complete software
-    development environment and complete set of instructions which
-    generated the figures.
-    \attrib{David L. Donoho}
-  \end{quote}
+
   Org-mode is a simple plain text markup language for hierarchical
   documents allowing intermingled data, code and prose.  An entire
   research project including; initial note taking, planning and task
   management, experimentation, analysis and publication, may take
   place within a single Org-mode document.  This article introduces
-  Org-mode including a overview of syntax, a working example of
-  reproducible research, and motivation for the features which make
-  Org-mode a particularly useful tool for the scientific researcher.
+  Org-mode including an overview of syntax, a working
+  \emph{reproducible} example of embedded data analysis, and a summary
+  of the features which make Org-mode a particularly useful tool for
+  the scientific researcher.
+
 \end{abstract}
 
 * Introduction
 
-Org-mode was initially developed as a simple outlining tool intended
-for note taking and brainstorming.  It was later augmented with task
+Org-mode is implemented as a part of the Emacs text editor \cite{emacs}.
+It was initially developed as a simple outlining tool intended
+for note taking and brainstorming, and was later augmented with task
 management tools---enabling notes to be transformed into tasks with
 deadlines and priorities---and with syntax for the inclusion of
 tables, data blocks, and active code blocks.  Org-mode may still be
 used as a simple plain-text note taking system, however increasingly
-sophisticated features may be gradually introduced as the comfort of
-the user permits.
+sophisticated features may be gradually introduced as the user's
+comfort level permits.
 
 Reproducible Research (RR) is the practice of publishing scientific
 results along with the software environment and data required for
 reproduction of all computational analysis presented in the
-publication.  Org-mode supports RR through syntax for including
-in-line data and code, mechanisms for evaluating embedded code, and
-publishing functionality which may be used to automate the
-computational analysis and generation of figures included in a
-publication.  This introduction will focus on these aspects of
-Org-mode which enable the practice of RR---for information on other
-aspects of Org-mode see the online manual [fn:2] and the community
-wiki [fn:3]---this article is available as an Org-mode document with
-which the examples presented below may be interactively executed [fn:4].
+publication.  Reproducibility is essential to peer reviewed research,
+however, refereed scientific publications often lack the information
+required to reproduce the research and analysis described in the work.
+
+#+begin_quote
+  An article about computational science in a scientific publication
+  is *not* the scholarship itself, it is merely *advertising* of the
+  scholarship.  The actual scholarship is the complete software
+  development environment and complete set of instructions which
+  generated the figures.
+
+  \attrib{Donoho \cite{donoho}}
+#+end_quote
+
+Org-mode supports RR with syntax for including in-line data and
+code, mechanisms for evaluating embedded code, and publishing
+functionality which may be used to automate the computational analysis
+and generation of figures included in an Org-mode document.  This
+article will focus on those aspects of Org-mode which enable the
+practice of RR---information on other aspects of Org-mode can be found
+in the manual \cite{org-manual} [fn:2] and the community wiki [fn:3].
+This plain text Org-mode source of this article is available [fn:4],
+which may be used to interactively execute the examples included below.
 
 * Syntax
 ** Outlines
-Org-mode documents are organized as hierarchical outline.  As such
+Org-mode documents are organized using a hierarchical outline.  As such
 they may be folded and expanded so that at any given time most of the
 content of the document is hidden from view.  In this way even very
 large documents may be comfortably navigated in a manner similar to
@@ -449,6 +456,13 @@ reproducible research. (will need to condense this drastically).
      DocBook.  Researchers and software developers who adopt Org-mode
      can be confident that it will be able to adapt to new languages
      or modes of development.
+
+
+
+#+begin_LaTeX
+\bibliographystyle{plain}
+\bibliography{babel}
+#+end_LaTeX
 
 * COMMENT How to Export this Document
 
