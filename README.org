@@ -10,8 +10,8 @@ The actual article will live in file:org-mode-active-doc.org (name of
 file and subject obviously subject to change).  This document can be
 used for project management.
 
-* Tasks [4/6]
-** TODO add some baseball explanation
+* Tasks [5/6]
+** DONE add some baseball explanation
 Provide some minimal intuition for what "Home Team Offensive Stats"
 means.
 

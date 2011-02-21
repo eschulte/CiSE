@@ -172,10 +172,21 @@ interactively or as part of export to a publishable.
    linked figure into the exported document.
 
 * Example Application
+The application of Org-mode to RR is demonstrated through the
+numerical analysis of baseball statistics.  The ordered nature of
+baseball games (like Cricket matches) makes them particularly amenable
+to statistical analysis.  The action in a game may be largely captured
+in a small number of discrete facts about the game.
+
+In this example we look at a number of common offensive statistics
+such as; at-bats, hits, homeruns, stolen bases, etc...  These
+statistics are correlated with the attendance of every Major League
+Baseball (MLB) game in the 2010 season, and the most correlated
+statistic is reported.
+
 ** Download External Data
 This example will show correlation of home team offensive statistics
-with attendance for the src_sh[:var season=season]{echo $season}
-Major League Baseball season.
+with attendance for the src_sh[:var season=season]{echo $season} MLB season.
 
 #+begin_src org
   ,#+results: season
