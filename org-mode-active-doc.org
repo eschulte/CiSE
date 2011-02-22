@@ -212,7 +212,7 @@ baseball statistics.
 
 #+begin_src org
   ,#+source: url
-  ,#+begin_src sh :var season=season :exports none
+  ,#+begin_src sh :var season=season
   ,  echo "http://www.retrosheet.org/gamelogs/gl$season.zip"
   ,#+end_src
 #+end_src
@@ -230,7 +230,6 @@ downloaded again every time the results of the code block are referenced.
 
 #+begin_src org
   ,#+source: raw-data
-  ,#+headers: :exports none
   ,#+begin_src sh :cache yes :var url=url :file 2010.csv
     wget $url && \
         unzip -p gl2010.zip > 2010.csv && \
@@ -251,7 +250,6 @@ offensive statistics that will be tested for correlation with attendance.
 
 #+begin_src org
   ,#+source: stat-headers
-  ,#+headers: :exports none
   ,#+begin_src python :results list :cache yes :return fields
     import urllib2
     url = 'http://www.retrosheet.org/gamelogs/glfields.txt'
@@ -309,7 +307,6 @@ file produced by the =raw-data= code block.
 
 #+begin_src org
   ,#+source: offensive-stats
-  ,#+headers: :exports none
   ,#+begin_src sh :var file=raw-data
     awk '{for (x=50; x<=66; x++) {  printf "%s ", $x } printf "\n" }' FS="," \
         < $file
@@ -317,7 +314,6 @@ file produced by the =raw-data= code block.
 #+end_src
 #+begin_src org
   ,#+source: attendance
-  ,#+headers: :exports none
   ,#+begin_src sh :var file=raw-data
     awk '{ print $18 }' FS="," < $file
   ,#+end_src
@@ -345,7 +341,7 @@ into the =stats= and =attendance= variables respectively.
 #+begin_src org
   ,#+source: analysis
   ,#+headers: :var headers=stat-headers :var stats=offensive-stats
-  ,#+begin_src R :var attendance=attendance :exports none
+  ,#+begin_src R :var attendance=attendance
     # apply the headers to the list
     colnames(stats) <- headers
 
@@ -406,13 +402,13 @@ attendance for the five games with the most forced walks (see Figure
 
 #+begin_src org
   ,#+source: top-8
-  ,#+begin_src sh :var data=raw-data :exports none
+  ,#+begin_src sh :var data=raw-data
     cat $data|awk '{print $60,$18,$7"-"$4}' FS=","|sed 's/"//g'|sort -rn |head -5
   ,#+end_src
 #+end_src
 #+begin_src org
   ,#+source: figure
-  ,#+begin_src gnuplot :var data=top-8 :file plot.png :exports results
+  ,#+begin_src gnuplot :var data=top-8 :file plot.png
     set yrange [0:6]
     set y2range [0:50000]
     set style data histogram
