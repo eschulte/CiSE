@@ -6,36 +6,36 @@
 
 \begin{abstract}
 
-  Org-mode is a simple plain text markup language for hierarchical
+  Org-mode is a simple, plain text, markup language for hierarchical
   documents allowing intermingled data, code and prose.  An entire
-  research project including; initial note taking, planning and task
-  management, experimentation, analysis and publication, may take
+  research project including, initial note taking, planning, task
+  management, experimentation, analysis, and publication may take
   place within a single Org-mode document.  This article introduces
-  Org-mode including an overview of syntax, a working
-  \emph{reproducible} example of embedded data analysis, and a summary
-  of the features which make Org-mode a particularly useful tool for
-  the scientific researcher.
+  Org-mode with an overview of syntax, a working \emph{reproducible}
+  example of embedded data analysis, and a summary of the features
+  that make Org-mode a particularly useful tool for the scientific
+  researcher.
 
 \end{abstract}
 
 * Introduction
-Org-mode is implemented as a part of the Emacs text editor \cite{emacs}.
-It was initially developed as a simple outlining tool intended
-for note taking and brainstorming, and was later augmented with task
-management tools---enabling notes to be transformed into tasks with
-deadlines and priorities---and with syntax for the inclusion of
-tables, data blocks, and active code blocks.  Org-mode may still be
-used as a simple plain-text note taking system, however increasingly
-sophisticated features may be gradually introduced as the user's
-comfort level permits.
+Org-mode is implemented as a part of the Emacs text editor
+\cite{emacs}.  It was initially developed as a simple outlining tool
+intended for note taking and brainstorming, and was later augmented
+with task management tools---enabling notes to be transformed into
+tasks with deadlines and priorities---and with syntax for the
+inclusion of tables, data blocks, and active code blocks.  Users new
+to Org-mode often start with its simple plain-text note taking system,
+then move on to increasingly sophisticated features as their comfort
+level permits.
 
 Reproducible Research (RR) is the practice of publishing scientific
 results along with the software environment and data required for
-reproduction of all computational analysis presented in the
+reproduction of all computational analyses presented in the
 publication \cite{cise-rr}.  Reproducibility is essential to peer
-reviewed research,
-however, refereed scientific publications often lack the information
-required to reproduce the research and analysis described in the work.
+reviewed research, however, scientific publications often lack the
+information required for reviewers to reproduce the analysis described
+in the work.
 
 #+begin_quote
   An article about computational science in a scientific publication
@@ -47,22 +47,26 @@ required to reproduce the research and analysis described in the work.
   \attrib{Donoho \cite{donoho}}
 #+end_quote
 
-Org-mode supports RR with syntax for including in-line data and
-code, mechanisms for evaluating embedded code, and publishing
-functionality which may be used to automate the computational analysis
-and generation of figures included in an Org-mode document.  This
-article will focus on those aspects of Org-mode which enable the
-practice of RR---information on other aspects of Org-mode can be found
-in the manual \cite{org-manual} [fn:2] and the community wiki [fn:3].
-This plain text Org-mode source of this article is available [fn:4],
-which may be used to interactively execute the examples included below.
+Org-mode supports RR with syntax for including in-line data and code,
+mechanisms for evaluating embedded code, and publishing functionality
+that may be used to automate the computational analysis and generation
+of figures.  This article will focus on the features of Org-mode
+that support the practice of RR; information on other aspects of
+Org-mode can be found in the manual \cite{org-manual} [fn:2] and the
+community wiki [fn:3].  The plain text Org-mode source of this
+article is available for download [fn:4]; a user with the requisite
+open-source software can 
+execute the source code examples, which analyze a dataset and create
+graphics, and export the complete paper to one of several output
+formats.
+
 
 * Syntax
 ** Outlines
-Org-mode documents are organized using a hierarchical outline.  As such
-they may be folded and expanded so that at any given time most of the
-content of the document is hidden from view.  In this way even very
-large documents may be comfortably navigated in a manner similar to
+Org-mode documents are organized using a hierarchical outline.  The
+outline can be folded and expanded, hiding or exposing as much of the
+document as wanted.  Using this facility, even very
+large documents can be comfortably navigated in a manner similar to
 that of a file system.  Headlines are indicated by leading =*='s as
 shown below in the folded view of this article from within Org-mode.
 
@@ -82,9 +86,8 @@ Org-mode uses many such keywords for associating information with
 headlines.
 
 ** Code and Data
-Using a simple `block' syntax both code and data may be embedded in
-Org-mode documents.  The following demonstrate both a data block and a
-code block as seen form within an Org-mode document.
+Using a simple `block' syntax, both code and data can be embedded in
+Org-mode documents, as follows.
 
 #+begin_src org :exports code
   ,First a data block.
@@ -98,10 +101,10 @@ code block as seen form within an Org-mode document.
   ,#+end_src
 #+end_src
 
-Such blocks may be named, allowing their contents to be referenced
-form elsewhere in the Org-mode file.  The following augments the
-previous example with references, allowing the shell script to
-reference the contents of the data block.
+Code and data blocks can be named, allowing their contents to be
+referenced form elsewhere in the Org-mode file, as illustrated in the
+following example where the shell script references the contents of
+the data block.
 
 #+begin_src org :exports code
   ,First a data block.
@@ -119,7 +122,7 @@ reference the contents of the data block.
   ,: 1       3      17
 #+end_src
 
-Such cross references between the code and data elements of an
+Cross references between the code and data elements of an
 Org-mode file turn Org-mode into a powerful multi-lingual programming
 environment, in which data and code expressed in many different
 programming languages may interact.
@@ -127,8 +130,9 @@ programming languages may interact.
 * Evaluation
 Code and data references make possible strings of /chained
 evaluation/.  Figure \ref{fig:chained-evaluation} shows the series of
-actions which result when the =analyze= code block is evaluated
-interactively or as part of export to a publishable.
+actions which result when the =analyze= code block
+(fig. \ref{fig:chained-evaluation}, 1) is evaluated
+interactively or during export.
 
 #+label: fig:chained-evaluation
 #+Caption: Active Org-mode Document
@@ -145,13 +149,13 @@ interactively or as part of export to a publishable.
    =raw= reference.
 
 4. The =raw= code block is evaluated, the =:var url=http://data.org=
-   header argument is evaluated as a literate value which is assigned
+   header argument is evaluated as a literal value which is assigned
    to the =url= variable and passed to the shell script.
    
-   The shell script then downloads data from the external url, and
-   returns this data as the result to Org-mode.
+   The shell script then downloads data from the external url and
+   makes these data available to Org-mode.
 
-5. The results of the shell script are assigned to the =raw= variable
+5. The results of the shell script are assigned to the =raw= variable,
    which is passed to the Python code in the body of the =data= code
    block.
 
@@ -162,27 +166,31 @@ interactively or as part of export to a publishable.
    =data= variable and passed to the R code in the body of the
    =analyze= code block.
 
-8. This code is then passed to an external R interpreter which
-   evaluates the R code and generates the =fig.pdf= figure.
+8. This code is then passed to an external R interpreter, which
+   generates a figure that is written to file specified in =:file
+   fig.pdf=.
+
 
 9. A reference to this figure is then passed from the =analyze= code
-   block back to Org-mode which inserts a link to this figure into the
-   body of the Org-mode document.  On export this link will embed the
-   linked figure into the exported document.
+   block back to Org-mode, which inserts a link marked by double
+   square brackets into the body of the Org-mode document.  On export
+   to HTML, ASCII, LaTeX, or another format supported by Org-mode,
+   the linked figure will be embedded into the exported document.
 
 * Example Application
-The application of Org-mode to RR is demonstrated through the
-numerical analysis of baseball statistics.  The ordered nature of
+The application of Org-mode to RR is illustrated with an
+analysis of baseball statistics.  The ordered nature of
 baseball games makes them particularly amenable to statistical
 analysis.  The performance of baseball players, and the course of
-baseball games may be largely captured in a small number of discrete
-facts.
+baseball games, are routinely captured in a small number of statistics
+that are comparable across space and time.
 
-In this example we look at a number of common offensive statistics
-e.g., at-bats, hits, homeruns, stolen bases, etc...  These statistics
-are correlated with the attendance of every Major League Baseball
-(MLB) game in the 2010 season.  The offensive statistic which has the
-largest correlation with high attendance is found and reported.
+In this example we analyze the correlation of several common offensive
+statistics with the attendance at Major League Baseball (MLB) games in
+the 2010 season.  We hypothesize what every baseball fan wants to
+believe, that large crowds spur the home team to superior levels of
+performance.  The offensive statistic that has the largest correlation
+with high attendance is found and reported.
 
 ** Download External Data
 This example will show correlation of home team offensive statistics
@@ -215,11 +223,11 @@ baseball statistics.
   echo "http://www.retrosheet.org/gamelogs/gl$season.zip"
 #+end_src
 
-With the =raw-data= code block, the zip file of statistics located at
+With the =raw-data= shell code block, the zip file of statistics located at
 the specified url is downloaded and its contents are unpacked into a
 local text file named =2010.csv=.  The =:cache yes= header argument
-ensures that this code block is only run once and the data is not
-re-downloaded every time the results of the code block are referenced.
+ensures that this code block is only run once and the data are not
+downloaded again every time the results of the code block are referenced.
 
 #+begin_src org
   ,#+source: raw-data
@@ -239,8 +247,8 @@ re-downloaded every time the results of the code block are referenced.
       rm gl2010.zip
 #+end_src
 
-Next the =stat-headers= code block returns a list of the names of the
-offensive statistics which we will be testing for correlation.
+Next the =stat-headers= Python code block returns a list of the names of the
+offensive statistics that will be tested for correlation with attendance.
 
 #+begin_src org
   ,#+source: stat-headers
@@ -296,9 +304,9 @@ offensive statistics which we will be testing for correlation.
 - left on base
 
 ** Parsing
-The next two code blocks, =offensive-stats= and =attendance=, collect
-the offensive statistics, and the attendance, from the raw data file
-produced by the =raw-data= block above.
+The next two shell code blocks, =offensive-stats= and =attendance=,
+collect the offensive statistics and the attendance from the raw data
+file produced by the =raw-data= code block.
 
 #+begin_src org
   ,#+source: offensive-stats
@@ -387,6 +395,11 @@ syntax for an inline block can be seen below.
   syntax for an inline block can be seen below.
 #+end_src
 
+These results indicate that the fans' belief in the effect of large
+crowds is shared by the visiting team, which chooses to walk a
+dangerous home team hitter rather than take the chance that the large
+crowd will spur him to a potentially damaging performance.
+
 ** Display
 Using gnuplot we can plot the number of forced walks and the
 attendance for the five games with the most forced walks (see Figure
@@ -436,40 +449,40 @@ attendance for the five games with the most forced walks (see Figure
 #+results: figure
 [[file:plot.png]]
 
-Co-mingling code and prose as demonstrated in this example benefits
-the author by collecting all relevant information into a single place,
-and benefits the reader through ensuring not only easy reproduction of
-the calculations performed in the work, but also easy extension.  For
-example, the reader of this article may easily re-run all analysis
-over other seasons by simply changing the value of the =season= code
-block above and re-exporting the file.
+Commingling code and prose, as demonstrated in this example, makes it
+possible for the author to collect all relevant information into a
+single place.  This practice benefits the reader, who can reproduce
+the calculations performed in the work, and also extend the analysis,
+possibly within Org-mode itself.  For example, the reader of this
+article can re-run the analysis for another season by simply changing
+the value of the =season= code block above and re-exporting the file.
 
 * Conclusion
-There are a number of features of Org-mode which make it a good choice
+There are a number of features of Org-mode that make it a good choice
 for reproducible research; some of these are /essential/ for any RR
-tool, and other simply alleviate common burdens of practicing RR.
+tool, and others alleviate common burdens of practicing RR.
 
-Of those /essential/ properties, arguably the most important is that
+Of the /essential/ properties, arguably the most important is that
 as part of Emacs, the Org-mode copyright is owned by the Free Software
 Foundation \cite{fsf}.  This ensures that Org-mode is now and will
 always be free and open source software.  This is directly related to
 two of the goals of RR.  First, Org-mode is available free of charge
 to install by any user on any system ensuring access to the software
-environment required for reproduction, and second, the source code
+environment required for reproduction.  Second, the source code
 specifying the inner workings of Org-mode is open to inspection,
 ensuring that the mechanisms through which Org-mode generates
 scientific results are open to review and verification.
 
 In addition to its open source pedigree, Org-mode benefits in other
-ways from its inclusion as part of Emacs.  Emacs is one of the oldest
-and most widely ported pieces of software in existence, with versions
-which run on all major operating systems.  This ensures that Org-mode
-documents can be incorporated into any working environment.  Emacs is
-also widely used by the scientific community for editing both prose
-documents and source code.  Through leveraging existing Emacs editing
-support Org-mode is able to offer its users a comfortable and familiar
-editing environment for all types of content.  Finally, due to
-Org-mode's implementation in the Emacs extension language, /Emacs
+ways from its development as part of Emacs.  Emacs is one of the most
+widely ported pieces of software in existence, with versions that run
+on all major operating systems.  This ensures that Org-mode documents
+can be incorporated into almost any computer working environment.
+Emacs is also widely used by the scientific community for editing both
+prose documents and source code.  By leveraging existing Emacs
+editing support, Org-mode is able to offer its users a comfortable and
+familiar editing environment for all types of content.  Finally, due
+to Org-mode's implementation in the Emacs extension language, /Emacs
 Lisp/ \cite{elisp}, it is possible for users to customize the behavior
 of Org-mode to their particular needs and to add support for arbitrary
 new programming languages---Org-mode currently has support for over
@@ -478,13 +491,13 @@ thirty programming languages.
 Org-mode addresses many common problems in the practice of RR.  Given
 that a single Org-mode document can be used for every stage of a
 research project from brain-storming, through software development and
-experimentation, to publication; the author is largely relieved of the
+experimentation, to publication, the author is largely relieved of the
 burden of tracking resources required for reproduction of the work.
-Such large amounts of information will result in extremely large
+Such large amounts of information can result in extremely large
 files, however the hierarchical folding of Org-mode documents enables
 users to comfortably read and edit such files, hiding much of the
-content from plain site.  These files are encoded in plain text, and
-as such, they can easily be used on any machine, and they integrate
+content from plain site.  The files themselves are encoded in plain
+text, which enhances their portability and makes them easy to integrate
 well with version control systems, allowing for revision tracking and
 collaboration \cite{cise-vc}.
 
