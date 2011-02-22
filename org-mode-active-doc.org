@@ -195,27 +195,13 @@ with high attendance is found and reported.
 This example will show correlation of home team offensive statistics
 with attendance for the src_sh[:var season=season]{echo $season} MLB season.
 
-#+begin_src org
-  ,#+results: season
-  ,: 2010
-#+end_src
-
-#+source: season
-#+begin_src emacs-lisp :exports none
-  2010
-#+end_src
+#+results: season
+: 2010
 
 This first code block, named =url=, translates the numerical season
 shown above into the url for the =retrosheet.org= [fn:1] website, a
 website devoted to the collection and curation of major league
 baseball statistics.
-
-#+begin_src org
-  ,#+source: url
-  ,#+begin_src sh :var season=season
-  ,  echo "http://www.retrosheet.org/gamelogs/gl$season.zip"
-  ,#+end_src
-#+end_src
 
 #+source: url
 #+begin_src sh :var season=season :exports none
@@ -228,15 +214,6 @@ local text file named =2010.csv=.  The =:cache yes= header argument
 ensures that this code block is only run once and the data are not
 downloaded again every time the results of the code block are referenced.
 
-#+begin_src org
-  ,#+source: raw-data
-  ,#+begin_src sh :cache yes :var url=url :file 2010.csv
-    wget $url && \
-        unzip -p gl2010.zip > 2010.csv && \
-        rm gl2010.zip
-  ,#+end_src
-#+end_src
-
 #+source: raw-data
 #+headers: :exports none
 #+begin_src sh :cache yes :var url=url :file 2010.csv
@@ -247,23 +224,6 @@ downloaded again every time the results of the code block are referenced.
 
 Next the =stat-headers= Python code block returns a list of the names of the
 offensive statistics that will be tested for correlation with attendance.
-
-#+begin_src org
-  ,#+source: stat-headers
-  ,#+begin_src python :results list :cache yes :return fields
-    import urllib2
-    url = 'http://www.retrosheet.org/gamelogs/glfields.txt'
-    fp = urllib2.urlopen(url)
-    fields = []
-    for line in fp:
-        if line.find('Visiting team offensive statistics') != -1:
-            line = fp.readline()
-            while line.find('Visiting team pitching statistics') == -1:
-                if line[13] != ' ':
-                    fields.append(line.strip().split('.')[0].split('(')[0])
-                line = fp.readline()
-  ,#+end_src
-#+end_src
 
 #+source: stat-headers
 #+headers: :exports none
@@ -305,20 +265,6 @@ The next two shell code blocks, =offensive-stats= and =attendance=,
 collect the offensive statistics and the attendance from the raw data
 file produced by the =raw-data= code block.
 
-#+begin_src org
-  ,#+source: offensive-stats
-  ,#+begin_src sh :var file=raw-data
-    awk '{for (x=50; x<=66; x++) {  printf "%s ", $x } printf "\n" }' FS="," \
-        < $file
-  ,#+end_src
-#+end_src
-#+begin_src org
-  ,#+source: attendance
-  ,#+begin_src sh :var file=raw-data
-    awk '{ print $18 }' FS="," < $file
-  ,#+end_src
-#+end_src
-
 #+source: offensive-stats
 #+headers: :exports none
 #+begin_src sh :var file=raw-data
@@ -337,28 +283,6 @@ The =analysis= code block uses the =R= statistical programming
 language to calculate correlations between the outputs of the
 =offensive-stats= and =attendance= code blocks, whose values are saved
 into the =stats= and =attendance= variables respectively.
-
-#+begin_src org
-  ,#+source: analysis
-  ,#+headers: :var headers=stat-headers :var stats=offensive-stats
-  ,#+begin_src R :var attendance=attendance
-    # apply the headers to the list
-    colnames(stats) <- headers
-
-    ## The following lines are required because parsing bugs are causing
-    ## corrupt data in these two rows.
-    badrows <- c(141, 674)
-    stats <- stats[-badrows,]
-    attendance <- attendance[-badrows,]
-    attendance <- as.integer(attendance)
-
-    # perform a simple correlation of each column with the attendance
-    corrln <- cor(stats, attendance)
-
-    # return the name of the most correlated column
-    rownames(corrln)[which.max(corrln)]
-  ,#+end_src
-#+end_src
 
 #+source: analysis
 #+headers: :var headers=stat-headers :var stats=offensive-stats
@@ -382,13 +306,7 @@ into the =stats= and =attendance= variables respectively.
 
 The most correlated column, namely src_sh[:var stat=analysis]{echo $stat}, can
 be mentioned in the text using an inline code block.  The Org-mode
-syntax for an inline block can be seen below.
-
-#+begin_src org
-The most correlated column, namely src_sh[:var stat=analysis]{echo $stat}, can
-be mentioned in the text using an inline code block.  The Org-mode
-syntax for an inline block can be seen below.
-#+end_src
+syntax for an inline block can be seen in this paragraph.
 
 These results indicate that the fans' belief in the effect of large
 crowds is shared by the visiting team, which chooses to walk a
@@ -399,25 +317,6 @@ crowd will spur him to a potentially damaging performance.
 Using gnuplot we can plot the number of forced walks and the
 attendance for the five games with the most forced walks (see Figure
 \ref{fig:top-5}).
-
-#+begin_src org
-  ,#+source: top-8
-  ,#+begin_src sh :var data=raw-data
-    cat $data|awk '{print $60,$18,$7"-"$4}' FS=","|sed 's/"//g'|sort -rn |head -5
-  ,#+end_src
-#+end_src
-#+begin_src org
-  ,#+source: figure
-  ,#+begin_src gnuplot :var data=top-8 :file plot.png
-    set yrange [0:6]
-    set y2range [0:50000]
-    set style data histogram
-    set style histogram clustered
-    set xtic rotate by -45 scale 0
-    plot data using 1:xtic(3) title 'forced walks', \
-         data using 2:xtic(3) axes x1y2 title 'attendance'
-  ,#+end_src
-#+end_src
 
 #+source: top-8
 #+begin_src sh :var data=raw-data :exports none
