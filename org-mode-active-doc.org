@@ -147,7 +147,7 @@ interactively or during export.
 3. The =:var raw=raw= header argument causes Org-mode to resolve the
    =raw= reference.
 
-4. The =raw= code block is evaluated, the =:var url=http://data.org=
+4. The =raw= code block is evaluated, the =:var url="http://data.org"=
    header argument is evaluated as a literal value which is assigned
    to the =url= variable and passed to the shell script.
 
