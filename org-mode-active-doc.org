@@ -8,7 +8,7 @@
 
   Org-mode is a simple, plain text, markup language for hierarchical
   documents allowing intermingled data, code and prose.  An entire
-  research project including, initial note taking, planning, task
+  research project, including initial note taking, planning, task
   management, experimentation, analysis, and publication may take
   place within a single Org-mode document.  This article introduces
   Org-mode with an overview of syntax, a working \emph{reproducible}
@@ -122,7 +122,7 @@ the data block.
 #+end_src
 
 Cross references between the code and data elements of an
-Org-mode file turn Org-mode into a powerful multi-lingual programming
+Org-mode file turn Org-mode into a powerful multilingual programming
 environment, in which data and code expressed in many different
 programming languages may interact.
 
@@ -139,7 +139,7 @@ interactively or during export.
 [[file:chained-evaluation.pdf]]
 
 1. The =analyze= code block is evaluated.  The =:var data=data= header
-   argument causes the =data= Org-mode to evaluate the =data= reference.
+   argument causes Org-mode to evaluate the =data= reference.
 
 2. To resolve this reference the =data= code block is located in the
    Org-mode file and is evaluated.
@@ -490,8 +490,7 @@ experimentation, to publication, the author is largely relieved of the
 burden of tracking resources required for reproduction of the work.
 Such large amounts of information can result in extremely large
 files, however the hierarchical folding of Org-mode documents enables
-users to comfortably read and edit such files, hiding much of the
-content from plain site.  The files themselves are encoded in plain
+users to comfortably read and edit such files.  The files themselves are encoded in plain
 text, which enhances their portability and makes them easy to integrate
 well with version control systems, allowing for revision tracking and
 collaboration \cite{cise-vc}.
