@@ -7,6 +7,7 @@ PREAMBLE=$(cat <<EOF
 \usepackage[mathscr]{eucal}
 \pagestyle{empty}             % do not remove
 \usepackage{tikz}
+\usepackage{gnuplot-lua-tikz}
 \usepackage{amsmath}
 \usepackage{color}
 \usepackage{stmaryrd}

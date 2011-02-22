@@ -14,3 +14,5 @@
 # Don't ignore the raw overview figure
 !chained-evaluation.tex
 !chained-evaluation.pdf
+!plot.tex
+!plot.pdf

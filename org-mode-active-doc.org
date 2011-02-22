@@ -1,5 +1,5 @@
 #+Title: Active Documents with Org-mode
-#+Author:
+#+Author: Eric Schulte and Dan Davison
 #+LATEX_HEADER: \usepackage{attrib}
 #+Options: ^:nil toc:nil
 #+Startup: hideblocks
@@ -426,16 +426,21 @@ attendance for the five games with the most forced walks (see Figure
 
 #+source: figure
 #+begin_src gnuplot :var data=top-8 :file plot.png :exports results
+  # set term tikz
+  # set output 'plot.tex'
   set yrange [0:6]
   set y2range [0:50000]
+  set key above
   set y2tics border
   set ylabel 'forced walks'
   set y2label 'attendance'
+  set style fill pattern
   set style data histogram
   set style histogram clustered
+  set auto x
   set xtic rotate by -45 scale 0
   plot data using 1:xtic(3) title 'forced walks', \
-       data using 2:xtic(3) axes x1y2 title 'attendance'
+       data using 2 axes x1y2 title 'attendance'
 #+end_src
 
 #+label: fig:top-5
