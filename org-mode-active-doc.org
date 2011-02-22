@@ -55,11 +55,10 @@ that support the practice of RR; information on other aspects of
 Org-mode can be found in the manual \cite{org-manual} [fn:2] and the
 community wiki [fn:3].  The plain text Org-mode source of this
 article is available for download [fn:4]; a user with the requisite
-open-source software can 
+open-source software can
 execute the source code examples, which analyze a dataset and create
 graphics, and export the complete paper to one of several output
 formats.
-
 
 * Syntax
 ** Outlines
@@ -94,7 +93,7 @@ Org-mode documents, as follows.
   ,#+begin_example
   ,  raw textual data
   ,#+end_example
-  
+
   ,Second a code block.
   ,#+begin_src sh
   ,  echo "shell script code"
@@ -112,12 +111,12 @@ the data block.
   ,#+begin_example
   ,  raw textual data
   ,#+end_example
-  
+
   ,Second a code block.
   ,#+begin_src sh :var text=raw-data
   ,  echo $text|wc
   ,#+end_src
-  
+
   ,#+results:
   ,: 1       3      17
 #+end_src
@@ -151,7 +150,7 @@ interactively or during export.
 4. The =raw= code block is evaluated, the =:var url=http://data.org=
    header argument is evaluated as a literal value which is assigned
    to the =url= variable and passed to the shell script.
-   
+
    The shell script then downloads data from the external url and
    makes these data available to Org-mode.
 
@@ -292,7 +291,7 @@ offensive statistics that will be tested for correlation with attendance.
 - homeruns
 - RBI
 - sacrifice hits
-- sacrifice flies 
+- sacrifice flies
 - hit-by-pitch
 - walks
 - intentional walks
@@ -349,17 +348,17 @@ into the =stats= and =attendance= variables respectively.
   ,#+begin_src R :var attendance=attendance :exports none
     # apply the headers to the list
     colnames(stats) <- headers
-    
+
     ## The following lines are required because parsing bugs are causing
     ## corrupt data in these two rows.
     badrows <- c(141, 674)
     stats <- stats[-badrows,]
     attendance <- attendance[-badrows,]
     attendance <- as.integer(attendance)
-    
+
     # perform a simple correlation of each column with the attendance
     corrln <- cor(stats, attendance)
-    
+
     # return the name of the most correlated column
     rownames(corrln)[which.max(corrln)]
   ,#+end_src
@@ -370,17 +369,17 @@ into the =stats= and =attendance= variables respectively.
 #+begin_src R :var attendance=attendance :exports none
   # apply the headers to the list
   colnames(stats) <- headers
-  
+
   ## The following lines are required because parsing bugs are causing
   ## corrupt data in these two rows.
   badrows <- c(141, 674)
   stats <- stats[-badrows,]
   attendance <- attendance[-badrows,]
   attendance <- as.integer(attendance)
-  
+
   # perform a simple correlation of each column with the attendance
   corrln <- cor(stats, attendance)
-  
+
   # return the name of the most correlated column
   rownames(corrln)[which.max(corrln)]
 #+end_src
@@ -505,7 +504,7 @@ Org-mode documents can run the gambit from simple collections of
 plain-text notes, to complex laboratories housing data and analysis
 mechanisms, to publishing desks with facilities for the display and
 export of scientific results.  There is a friendly community of
-Org-mode users and developers who communicate through the Org-mode
+Org-mode users and developers who communicate on the Org-mode
 mailing list [fn:5]; through answering questions and helping each
 other to master Org-mode's many features, this community helps to
 solve one of the largest hurdles posed by any RR tool, namely learning
