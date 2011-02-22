@@ -385,9 +385,9 @@ be mentioned in the text using an inline code block.  The Org-mode
 syntax for an inline block can be seen below.
 
 #+begin_src org
-  The most correlated column (src_sh[:var stat=analysis]{echo $stat})
-  can be mentioned in the text using an inline code block.  The Org-mode
-  syntax for an inline block can be seen below.
+The most correlated column, namely src_sh[:var stat=analysis]{echo $stat}, can
+be mentioned in the text using an inline code block.  The Org-mode
+syntax for an inline block can be seen below.
 #+end_src
 
 These results indicate that the fans' belief in the effect of large
