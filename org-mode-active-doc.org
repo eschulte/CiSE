@@ -417,7 +417,7 @@ how to use it.
 * COMMENT How to Export this Document
 
 - Requirements :: Ensure that you have both recent versions of [[http://www.gnu.org/software/emacs/][Emacs]]
-  (23 or greater) and [[http://orgmode.org/][Org-mode]] (7.5 or greater) installed on your
+  (23 or greater) and [[http://orgmode.org/][Org-mode]] (7.5 +or greater+) installed on your
   system.  To evaluate the code blocks in this paper the relevant
   programming languages must be installed on your system, these
   include;
